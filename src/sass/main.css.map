@@ -4,7 +4,7 @@
     "sources": [
         "main.scss",
         "base/_reset.scss",
-        "base/typography.scss"
+        "base/_typography.scss"
     ],
     "names": [],
     "file": "main.css"
