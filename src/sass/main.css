@@ -1,0 +1,15 @@
+* {
+  margin: 0%;
+  padding: 0px;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+html {
+  font-size: 62.5%;
+}
+
+body {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+/*# sourceMappingURL=main.css.map */
