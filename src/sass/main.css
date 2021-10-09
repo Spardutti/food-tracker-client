@@ -5,11 +5,38 @@
           box-sizing: border-box;
 }
 
+a {
+  text-decoration: none;
+  color: black;
+}
+
+a:hover {
+  color: black;
+}
+
 html {
   font-size: 62.5%;
 }
 
 body {
   font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.nav {
+  font-size: 2rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  height: 5rem;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.nav a {
+  margin-left: 1rem;
 }
 /*# sourceMappingURL=main.css.map */
