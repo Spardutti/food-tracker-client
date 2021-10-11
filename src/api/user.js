@@ -1,4 +1,8 @@
 const urlDev = "http://localhost:5000";
+const params = {
+  //Authorization: token,
+  "Content-Type": "application/json",
+};
 
 /* export const getUser = async (userId) => {
   const response = await fetch(urlDev + "/user/getuser/" + userId);
@@ -10,11 +14,12 @@ const urlDev = "http://localhost:5000";
 export const newLocalUser = async (username, password, confirmPassword) => {
   const response = await fetch(urlDev + "/user/newLocalUser", {
     method: "POST",
-    body: {
+    headers: params,
+    body: JSON.stringify({
       username,
       password,
-      confirmPassword,
-    },
+      confirm: confirmPassword,
+    }),
   });
 
   const data = await response.json();

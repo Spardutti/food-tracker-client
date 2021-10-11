@@ -24,8 +24,10 @@ export const Signup = ({ toggleSignup }) => {
   };
 
   /* CREATE ACC */
-  const createAcc = async () => {
+  const createAcc = async (e) => {
+    e.preventDefault();
     const response = await newLocalUser(username, password, confirmPassword);
+    console.log(response);
     if (response.status === 500) setErrors(response.data.errors);
     /* TODO ELSE CREATE ACC AND PROCEED */
   };
@@ -34,7 +36,7 @@ export const Signup = ({ toggleSignup }) => {
   const ShowErrors = () => {
     return (
       errors && (
-        <div>
+        <div className="errors">
           {errors.map((error, index) => {
             return <p key={index}>{error.msg}</p>;
           })}
@@ -72,7 +74,7 @@ export const Signup = ({ toggleSignup }) => {
           <div className="input-container">
             <input
               type="text"
-              name="confirmPassword"
+              name="confirm"
               value={confirmPassword}
               required
               autoComplete="off"
@@ -84,7 +86,7 @@ export const Signup = ({ toggleSignup }) => {
             <ShowErrors />
           ) : (
             <div className="btn-container">
-              <button className="btn btn-main" onClick={createAcc}>
+              <button className="btn btn-main" onClick={(e) => createAcc(e)}>
                 Crear
               </button>
             </div>
