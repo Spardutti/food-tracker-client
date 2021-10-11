@@ -1,3 +1,5 @@
+/* TEXT COLOR */
+/* BACKGROUNDS */
 * {
   margin: 0%;
   padding: 0px;
@@ -7,11 +9,11 @@
 
 a {
   text-decoration: none;
-  color: black;
+  color: #201d1d;
 }
 
 a:hover {
-  color: black;
+  color: #201d1d;
 }
 
 html {
@@ -38,5 +40,119 @@ body {
 
 .nav a {
   margin-left: 1rem;
+}
+
+.overlay {
+  position: fixed;
+  left: 0;
+  right: 0%;
+  top: 0%;
+  bottom: 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  z-index: 99;
+  background-color: rgba(0, 0, 0, 0.8);
+  -webkit-animation: fadeIn 0.3s;
+          animation: fadeIn 0.3s;
+}
+
+.form {
+  width: 40rem;
+  min-height: 30rem;
+  background-color: white;
+  padding: 2rem;
+  border-radius: 1rem;
+  font-size: 2rem;
+}
+
+.form .input-container {
+  position: relative;
+  padding: 2rem 0;
+}
+
+.form .input-container:first-child {
+  padding-top: 3rem;
+}
+
+.form .input-container input {
+  width: 100%;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-bottom: 0.1rem solid #201d1d;
+  outline: none;
+}
+
+.form .input-container input:focus + label,
+.form .input-container input:valid + label {
+  -webkit-transform: translateY(-2.5rem);
+          transform: translateY(-2.5rem);
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
+}
+
+.form .input-container label {
+  position: absolute;
+  left: 0%;
+  bottom: 2rem;
+}
+
+.form .input-container label:first-child {
+  bottom: 3rem;
+}
+
+/* FADE */
+@-webkit-keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.btn-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.btn-container .btn {
+  padding: 1rem 2rem;
+  border-radius: 1rem;
+  border: none;
+  font-weight: bold;
+  letter-spacing: 0.2rem;
+}
+
+.btn-container .btn:hover {
+  -webkit-transform: translateY(-0.5rem);
+          transform: translateY(-0.5rem);
+  -webkit-transition: all 0.4s;
+  transition: all 0.4s;
+  -webkit-box-shadow: 0 1rem 0.5rem #272727;
+          box-shadow: 0 1rem 0.5rem #272727;
+}
+
+.btn-container .btn-main {
+  background-color: blue;
+  color: white;
 }
 /*# sourceMappingURL=main.css.map */

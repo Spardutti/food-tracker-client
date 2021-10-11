@@ -1,0 +1,40 @@
+.form {
+  width: 40rem;
+  min-height: 30rem;
+  background-color: white;
+  padding: 2rem;
+  border-radius: 1rem;
+  font-size: 2rem;
+
+  .input-container {
+    position: relative;
+    padding: 2rem 0;
+
+    &:first-child {
+      padding-top: 3rem;
+    }
+    input {
+      width: 100%;
+      padding: 0.5rem 1rem;
+      border: none;
+      border-bottom: 0.1rem solid $text-dark;
+      outline: none;
+
+      &:focus + label,
+      &:valid + label {
+        transform: translateY(-2.5rem);
+        transition: all 0.3s;
+      }
+    }
+
+    label {
+      position: absolute;
+      left: 0%;
+      bottom: 2rem;
+
+      &:first-child {
+        bottom: 3rem;
+      }
+    }
+  }
+}
