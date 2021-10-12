@@ -74,7 +74,7 @@ body {
 
 .form .input-container {
   position: relative;
-  padding: 2rem 0;
+  padding: 2.5rem 0;
 }
 
 .form .input-container:first-child {
@@ -83,28 +83,38 @@ body {
 
 .form .input-container input {
   width: 100%;
-  padding: 0.5rem 1rem;
+  padding: 0rem 1rem;
   border: none;
   border-bottom: 0.1rem solid #201d1d;
   outline: none;
+  font-size: 2rem;
 }
 
 .form .input-container input:focus + label,
-.form .input-container input:valid + label {
+.form .input-container input:valid + label,
+.form .input-container input:hover + label {
   -webkit-transform: translateY(-2.5rem);
           transform: translateY(-2.5rem);
   -webkit-transition: all 0.3s;
   transition: all 0.3s;
+  color: rgba(0, 0, 0, 0.8);
 }
 
 .form .input-container label {
   position: absolute;
   left: 0%;
-  bottom: 2rem;
+  bottom: 3rem;
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
 }
 
 .form .input-container label:first-child {
   bottom: 3rem;
+}
+
+.form .input-container label:hover {
+  -webkit-transform: translateY(-2.5rem);
+          transform: translateY(-2.5rem);
 }
 
 .errors {
@@ -144,6 +154,7 @@ body {
   border: none;
   font-weight: bold;
   letter-spacing: 0.2rem;
+  cursor: pointer;
 }
 
 .btn-container .btn:hover {

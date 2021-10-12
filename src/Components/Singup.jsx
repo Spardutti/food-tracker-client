@@ -1,11 +1,16 @@
 import { useState, useEffect } from "react";
 import { newLocalUser } from "../api/user";
+import Spinner from "./styled/Spinner";
+import { useHistory } from "react-router-dom";
 
 export const Signup = ({ toggleSignup }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [errors, setErrors] = useState();
+  const [accCreated, setAccCreated] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const history = useHistory();
 
   /* HANDLERS */
   const usernameHandler = (e) => {
@@ -25,11 +30,22 @@ export const Signup = ({ toggleSignup }) => {
 
   /* CREATE ACC */
   const createAcc = async (e) => {
+    setLoading(true);
     e.preventDefault();
     const response = await newLocalUser(username, password, confirmPassword);
-    console.log(response);
-    if (response.status === 500) setErrors(response.data.errors);
-    /* TODO ELSE CREATE ACC AND PROCEED */
+
+    if (response.status === 500) {
+      setLoading(false);
+      return setErrors(response.data.errors);
+    }
+
+    setLoading(false);
+    setAccCreated(true);
+
+    setTimeout(() => {
+      toggleSignup();
+      history.push("/login");
+    }, 1000);
   };
 
   /* SHOW ERRORS  */
@@ -84,11 +100,17 @@ export const Signup = ({ toggleSignup }) => {
           </div>
           {errors ? (
             <ShowErrors />
+          ) : loading ? (
+            <Spinner />
           ) : (
             <div className="btn-container">
-              <button className="btn btn-main" onClick={(e) => createAcc(e)}>
-                Crear
-              </button>
+              {accCreated ? (
+                <p>Cuenta creada!</p>
+              ) : (
+                <button className="btn btn-main" onClick={(e) => createAcc(e)}>
+                  Crear
+                </button>
+              )}
             </div>
           )}
         </form>
