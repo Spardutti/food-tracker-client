@@ -10,7 +10,7 @@ const params = {
   return data;
 }; */
 
-/* NEW USER LOCAL LOGIN */
+/* CREATE NEW USER LOCAL  */
 export const newLocalUser = async (username, password, confirmPassword) => {
   const response = await fetch(urlDev + "/user/newLocalUser", {
     method: "POST",
@@ -24,4 +24,19 @@ export const newLocalUser = async (username, password, confirmPassword) => {
 
   const data = await response.json();
   return { data, status: response.status };
+};
+
+/* LOCAL USER LOGIN */
+export const localLogin = async (username, password) => {
+  const response = await fetch(urlDev + "/user/localLogin", {
+    method: "POST",
+    headers: params,
+    body: JSON.stringify({
+      username,
+      password,
+    }),
+  });
+
+  const data = await response.json();
+  return data;
 };

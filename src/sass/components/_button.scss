@@ -15,6 +15,10 @@
       transition: all 0.4s;
       box-shadow: 0 1rem 0.5rem $bg-dark;
     }
+
+    &:active {
+      transform: translateY(-0.1rem);
+    }
   }
 
   .btn-main {

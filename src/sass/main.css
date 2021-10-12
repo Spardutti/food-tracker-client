@@ -166,8 +166,26 @@ body {
           box-shadow: 0 1rem 0.5rem #272727;
 }
 
+.btn-container .btn:active {
+  -webkit-transform: translateY(-0.1rem);
+          transform: translateY(-0.1rem);
+}
+
 .btn-container .btn-main {
   background-color: blue;
   color: white;
+}
+
+.login-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  margin-top: 20rem;
+  background-color: rgba(0, 0, 0, 0.8);
+  padding: 1rem;
+  width: 40rem;
+  height: 40rem;
+  margin: 20rem auto;
+  border-radius: 1rem;
 }
 /*# sourceMappingURL=main.css.map */
