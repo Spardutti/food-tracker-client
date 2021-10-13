@@ -1,9 +1,10 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
 import { Signup } from "./Singup";
+import { userContext } from "../context/userContext";
 
 export const NavBar = () => {
-  const [user, setUser] = useState(false);
+  const { user } = useContext(userContext);
   const [signupModal, setSignupModal] = useState(false);
 
   const toggleSignup = () => setSignupModal(!signupModal);
@@ -11,7 +12,8 @@ export const NavBar = () => {
   const User = () => {
     return (
       <div className="nav">
-        <Link to="/profile">Mi Perfil</Link>
+        <Link to="/home">Inicio </Link>
+        <Link to="/profile">Perfil</Link>
         <Link to="/recipes">Recetas</Link>
         <Link to="#">Salir</Link>
       </div>
@@ -23,7 +25,6 @@ export const NavBar = () => {
       <div>
         <div className="nav">
           <Link to="/">Inicio</Link>
-          <Link to="/recipes">Recetas</Link>
           <Link to="#" onClick={toggleSignup}>
             Registrarse
           </Link>
