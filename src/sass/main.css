@@ -188,4 +188,20 @@ body {
   margin: 20rem auto;
   border-radius: 1rem;
 }
+
+.recipe-card-container {
+  width: 10rem;
+  height: 10rem;
+  position: relative;
+}
+
+.recipe-card-bg {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 5rem;
+  height: 5rem;
+  z-index: -1;
+  opacity: 0.9;
+}
 /*# sourceMappingURL=main.css.map */

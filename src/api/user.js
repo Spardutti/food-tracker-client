@@ -1,23 +1,25 @@
-import jwt, { decode } from "jsonwebtoken";
+import jwt from "jsonwebtoken";
 const urlDev = "http://localhost:5000";
-let token;
-let decodedToken;
 
 const params = {
-  Authorization: token,
+  Authorization: "",
   "Content-Type": "application/json",
 };
 
 /* CHECK FOR LOCAL TOKEN */
 export const checkLocalToken = () => {
-  token = localStorage.getItem("food-token");
+  let token = localStorage.getItem("food-token");
   if (token) {
-    decodedToken = jwt.decode(token);
+    let decodedToken = jwt.decode(token);
     const expiresAt = new Date(decodedToken.exp * 1000);
 
     if (expiresAt < new Date(Date.now())) {
       localStorage.removeItem("food-token");
-    } else return (token = "Bearer " + token);
+    } else {
+      params.Authorization = "Bearer " + token;
+
+      return true;
+    }
   } else return null;
 };
 
@@ -53,4 +55,13 @@ export const localLogin = async (username, password) => {
   if (response.status === 200) localStorage.setItem("food-token", data.token);
 
   return { data, status: response.status };
+};
+
+/* GET USER */
+export const getUser = async () => {
+  const response = await fetch(urlDev + "/user/getuser", {
+    headers: params,
+  });
+  const data = await response.json();
+  return data;
 };

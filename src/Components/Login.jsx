@@ -34,6 +34,8 @@ export const Login = () => {
     }
 
     setUser(response.data.user);
+    localStorage.setItem("food-token", response.data.token);
+
     setLoading(false);
     history.push("/home");
   };
