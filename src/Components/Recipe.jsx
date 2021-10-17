@@ -1,18 +1,20 @@
 import { useState, useEffect } from "react";
+import { getRecipe } from "../api/recipe";
 
-export const Recipe = () => {
-  const [user, setUser] = useState();
+export const Recipe = (props) => {
+  const [recipeId, setRecipeId] = useState();
 
-  const getUserInfo = async () => {};
+  const getRecipeInfo = async () => {
+    getRecipe(recipeId);
+  };
 
   useEffect(() => {
-    getUserInfo();
+    setRecipeId(props.location.state.id);
   }, []);
 
-  return (
-    <div>
-      <p>{user && user.username}</p>
-      <div>{user && user.fridge[0].name}</div>
-    </div>
-  );
+  useEffect(() => {
+    getRecipeInfo();
+  }, [recipeId]);
+
+  return <div>recipe</div>;
 };

@@ -8,3 +8,10 @@ export const latestRecipes = async () => {
 
   return data;
 };
+
+/* GET RECIPE */
+export const getRecipe = async (id) => {
+  const response = await fetch(urlDev + "/recipe/" + id);
+  const data = await response.json();
+  console.log(data);
+};

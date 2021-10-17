@@ -17,12 +17,24 @@ export const Home = () => {
 
   return (
     <div>
-      {newRecipes.map((recipe, index) => {
-        return (
-          <RecipeCard name={recipe.name} image={recipe.image} key={index} />
-        );
-      })}
-      <p>Home</p>
+      <div className="home-container">
+        <h5>Ultimas recetas agregadas</h5>
+        <div className="home-card-container">
+          {newRecipes.map((recipe, index) => {
+            const { _id, name, image, instructions, rating } = recipe;
+            return (
+              <RecipeCard
+                id={_id}
+                name={name}
+                image={image}
+                key={index}
+                instructions={instructions}
+                rating={rating}
+              />
+            );
+          })}
+        </div>
+      </div>
     </div>
   );
 };
