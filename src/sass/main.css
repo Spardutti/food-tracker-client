@@ -224,4 +224,20 @@ body {
       -ms-flex-align: center;
           align-items: center;
 }
+
+.recipe-container {
+  width: 50rem;
+  margin: 10rem auto;
+}
+
+.recipe-container .tittle {
+  font-size: 1.1rem;
+  text-align: center;
+  padding: 0.2rem;
+}
+
+.recipe-container .tittle h3 {
+  font-size: 3rem;
+  padding: 1rem;
+}
 /*# sourceMappingURL=main.css.map */
