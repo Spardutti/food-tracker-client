@@ -36,7 +36,7 @@ export const Signup = ({ toggleSignup }) => {
 
     if (response.status === 500) {
       setLoading(false);
-      return setErrors(response.data.errors);
+      return setErrors(response.data.validationErrors);
     }
 
     setLoading(false);

@@ -26,26 +26,26 @@ export const SingleRecipe = (props) => {
 
   return recipeInfo ? (
     <div className="recipe-container">
-      <div className="recipe-tittle">
+      <div className="tittle">
         <h3>{recipeInfo.name}</h3>
         <p>Calificacion {recipeInfo.rating.length}</p>
         <hr />
       </div>
-      <div className="recipe-ingredients">
+      <div className="ingredients">
         <h5>Ingredientes</h5>
-      </div>
-      <div className="recipe-instructions">
-        <h5>Preparacion</h5>
-        <p>{recipeInfo.instructions}</p>
-        {recipeInfo.ingredients.map((ingredient) => {
+        {recipeInfo.ingredients.map((ingredient, index) => {
           return (
-            <ul>
+            <ul className="list" key={index}>
               <li>{ingredient.ingredient.name}</li>
               <li>{ingredient.quantity}</li>
               <li>{ingredient.unit}</li>
             </ul>
           );
         })}
+      </div>
+      <div className="instructions">
+        <h5>Preparacion</h5>
+        <p>{recipeInfo.instructions}</p>
       </div>
     </div>
   ) : null;
