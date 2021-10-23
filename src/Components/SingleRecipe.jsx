@@ -37,6 +37,15 @@ export const SingleRecipe = (props) => {
       <div className="recipe-instructions">
         <h5>Preparacion</h5>
         <p>{recipeInfo.instructions}</p>
+        {recipeInfo.ingredients.map((ingredient) => {
+          return (
+            <ul>
+              <li>{ingredient.ingredient.name}</li>
+              <li>{ingredient.quantity}</li>
+              <li>{ingredient.unit}</li>
+            </ul>
+          );
+        })}
       </div>
     </div>
   ) : null;
