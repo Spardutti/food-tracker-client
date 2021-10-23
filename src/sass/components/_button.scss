@@ -1,0 +1,28 @@
+.btn-container {
+  display: flex;
+  justify-content: center;
+
+  .btn {
+    padding: 1rem 2rem;
+    border-radius: 1rem;
+    border: none;
+    font-weight: bold;
+    letter-spacing: 0.2rem;
+    cursor: pointer;
+
+    &:hover {
+      transform: translateY(-0.5rem);
+      transition: all 0.4s;
+      box-shadow: 0 1rem 0.5rem $bg-dark;
+    }
+
+    &:active {
+      transform: translateY(-0.1rem);
+    }
+  }
+
+  .btn-main {
+    background-color: $bg-blue;
+    color: $text-white;
+  }
+}
