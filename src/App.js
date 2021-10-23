@@ -1,7 +1,7 @@
 import { Home } from "./Components/Home";
 import { NavBar } from "./Components/NavBar";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
-import { Recipe } from "./Components/Recipe";
+import { SingleRecipe } from "./Components/SingleRecipe";
 import { Login } from "./Components/Login";
 import "./sass/main.css";
 import { userContext } from "./context/userContext";
@@ -20,7 +20,6 @@ function App() {
     const isToken = await checkLocalToken();
     if (isToken) {
       setUser(await getUser());
-      history.push("/home");
     } else history.push("/");
   };
 
@@ -32,7 +31,7 @@ function App() {
     <userContext.Provider value={{ user, setUser }}>
       <NavBar />
       <Switch>
-        <Route path="/recipes" component={Recipe} />
+        <Route path="/recipe" component={SingleRecipe} />
         <Route path="/login" component={Login} />
         <Route path="/profile" component={Profile} />
         <Route path="/home" component={Home} />

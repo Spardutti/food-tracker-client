@@ -13,5 +13,5 @@ export const latestRecipes = async () => {
 export const getRecipe = async (id) => {
   const response = await fetch(urlDev + "/recipe/" + id);
   const data = await response.json();
-  console.log(data);
+  return data;
 };
