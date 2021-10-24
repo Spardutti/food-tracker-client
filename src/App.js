@@ -10,6 +10,7 @@ import { Profile } from "./Components/Profile";
 import { WelcomeScreen } from "./Components/WelcomeScreen";
 import { checkLocalToken, getUser } from "./api/user";
 import { useHistory } from "react-router";
+import { Recipes } from "./Components/Recipes";
 
 function App() {
   const [user, setUser] = useState();
@@ -35,6 +36,7 @@ function App() {
         <Route path="/login" component={Login} />
         <Route path="/profile" component={Profile} />
         <Route path="/home" component={Home} />
+        <Route path="/recipes" component={Recipes} />
         <Route exact path="/" component={WelcomeScreen} />
       </Switch>
     </userContext.Provider>
