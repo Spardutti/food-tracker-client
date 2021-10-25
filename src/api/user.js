@@ -17,7 +17,6 @@ export const checkLocalToken = () => {
       localStorage.removeItem("food-token");
     } else {
       params.Authorization = "Bearer " + token;
-
       return true;
     }
   } else return null;
