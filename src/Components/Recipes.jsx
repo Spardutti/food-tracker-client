@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
+import { Redirect } from "react-router";
 import { getAllRecipes } from "../api/recipe";
 import { RecipeCard } from "./RecipeCard";
-
+import { CreateNewRecipe } from "./CreateNewRecipe";
 
 export const Recipes = () => {
     const [allRecipes, setAllRecipes] = useState([]);
@@ -18,8 +19,9 @@ export const Recipes = () => {
 
     return (
         <div>
+            <CreateNewRecipe />
             <div >
-            <h5></h5>
+            <button className="new-recipe-button">Crear Receta</button>
             <div>
                 {allRecipes.map((recipe, index) => {
                     const { _id, name, image, rating } = recipe;
