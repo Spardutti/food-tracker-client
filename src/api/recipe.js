@@ -15,3 +15,10 @@ export const getRecipe = async (id) => {
   const data = await response.json();
   return data;
 };
+
+/* GET ALL RECIPES ARRAY INFO */
+export const getAllRecipes = async () => {
+  const response = await fetch(urlDev + "/recipe/allRecipes");
+  const data = await response.json();
+  return data;
+};
