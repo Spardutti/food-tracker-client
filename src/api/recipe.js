@@ -80,3 +80,12 @@ export const removeRecipeIngredient = async (recipeId, ingredientId) => {
   const data = await response.json();
   return data;
 };
+
+/* CREATE NEW RECIPE */
+export const createNewRecipe = async (
+  name,
+  instructions,
+  ingredients,
+  author,
+  rating
+) => {};

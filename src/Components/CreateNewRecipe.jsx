@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
-
+import { getAllIngredients } from "../api/ingredient";
+import { IngredientsDropdown } from "./IngredientsDropdown";
 
 export const CreateNewRecipe = () => {
     const [recipeName, setRecipeName] = useState("");
@@ -8,6 +9,7 @@ export const CreateNewRecipe = () => {
     const [ingredientName, setIngredientName] = useState("");
     const [ingredientQuantity, setIngredientQuantity] = useState("");
     const [ingredientUnit, setIngredientUnit] = useState("");
+
 
     /* HANDLERS */
     const nameHandler = (e) => {
@@ -36,6 +38,18 @@ export const CreateNewRecipe = () => {
         
     }
 
+
+    const [allIngredients, setAllIngredients] = useState([]);
+
+    const getAll = async () => {
+    const ingredient = await getAllIngredients();
+    if (ingredient) setAllIngredients(ingredient);
+    }
+
+    useEffect(() => {
+    getAll();
+    }, [])
+
     return (
         <div>
             <form className="form">
@@ -48,11 +62,7 @@ export const CreateNewRecipe = () => {
                 <label htmlFor="">Instrucciones</label>
             </div>
             <div className="input-container">
-                <select name="" id="" onChange={ingredientHandler} value={ingredientName}>
-                    <option value=""></option>
-                    <option value="tomate">Tomate</option>
-                    <option value="sal">Sal</option>
-                </select>
+                <IngredientsDropdown ingredients="" valueKey={ingredientName} onChangeKey={ingredientHandler} />
             </div>
             <div className="input-container">
                 <input type="text" required autoComplete="off" onChange={quantityHandler} value={ingredientQuantity} />
