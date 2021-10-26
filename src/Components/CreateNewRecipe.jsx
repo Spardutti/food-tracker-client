@@ -40,17 +40,31 @@ export const CreateNewRecipe = () => {
     createNewRecipe(
       recipeName,
       recipeInstructions,
-      ingredientName,
+      recipeIngredients,
       ingredientQuantity,
       ingredientUnit
     );
+  };
+
+  /* ADD INGREDIENT TO RECIPE */
+  const addIngredient = async (e) => {
+    e.preventDefault();
+
+    let add = recipeIngredients;
+
+    add.push({
+      ingredient: ingredientName,
+      quantity: ingredientQuantity,
+      unit: ingredientUnit,
+    });
+    console.log(add, recipeIngredients);
+    setRecipeIngredients(add);
   };
 
   const getAll = async () => {
     const ingredient = await getAllIngredients();
     if (ingredient) setAllIngredients(ingredient);
   };
-  console.log(ingredientName);
   useEffect(() => {
     getAll();
   }, []);
@@ -103,8 +117,13 @@ export const CreateNewRecipe = () => {
           </select>
         </div>
         <div className="btn-container">
+          <button className="btn btn-main" onClick={addIngredient}>
+            Add Ingredient
+          </button>
+        </div>
+        <div className="btn-container">
           <button className="btn btn-main" onClick={createRecipe}>
-            Create
+            Create Recipe
           </button>
         </div>
       </form>
