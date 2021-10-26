@@ -82,10 +82,4 @@ export const removeRecipeIngredient = async (recipeId, ingredientId) => {
 };
 
 /* CREATE NEW RECIPE */
-export const createNewRecipe = async (
-  name,
-  instructions,
-  ingredients,
-  author,
-  rating
-) => {};
+export const createNewRecipe = async (name, instructions, ingredients) => {};
