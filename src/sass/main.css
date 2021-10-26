@@ -63,60 +63,6 @@ body {
           animation: fadeIn 0.3s;
 }
 
-.form {
-  width: 40rem;
-  min-height: 30rem;
-  background-color: white;
-  padding: 2rem;
-  border-radius: 1rem;
-  font-size: 2rem;
-}
-
-.form .input-container {
-  position: relative;
-  padding: 2.5rem 0;
-}
-
-.form .input-container:first-child {
-  padding-top: 3rem;
-}
-
-.form .input-container input {
-  width: 100%;
-  padding: 0rem 1rem;
-  border: none;
-  border-bottom: 0.1rem solid #201d1d;
-  outline: none;
-  font-size: 2rem;
-}
-
-.form .input-container input:focus + label,
-.form .input-container input:valid + label,
-.form .input-container input:hover + label {
-  -webkit-transform: translateY(-2.5rem);
-          transform: translateY(-2.5rem);
-  -webkit-transition: all 0.3s;
-  transition: all 0.3s;
-  color: rgba(0, 0, 0, 0.8);
-}
-
-.form .input-container label {
-  position: absolute;
-  left: 0%;
-  bottom: 3rem;
-  -webkit-transition: all 0.3s;
-  transition: all 0.3s;
-}
-
-.form .input-container label:first-child {
-  bottom: 3rem;
-}
-
-.form .input-container label:hover {
-  -webkit-transform: translateY(-2.5rem);
-          transform: translateY(-2.5rem);
-}
-
 .errors {
   font-size: 1.5rem;
 }
@@ -148,7 +94,7 @@ body {
           justify-content: center;
 }
 
-.btn-container .btn {
+.btn {
   padding: 1rem 2rem;
   border-radius: 1rem;
   border: none;
@@ -157,7 +103,7 @@ body {
   cursor: pointer;
 }
 
-.btn-container .btn:hover {
+.btn:hover {
   -webkit-transform: translateY(-0.5rem);
           transform: translateY(-0.5rem);
   -webkit-transition: all 0.4s;
@@ -166,12 +112,12 @@ body {
           box-shadow: 0 1rem 0.5rem #272727;
 }
 
-.btn-container .btn:active {
+.btn:active {
   -webkit-transform: translateY(-0.1rem);
           transform: translateY(-0.1rem);
 }
 
-.btn-container .btn-main {
+.btn-main {
   background-color: blue;
   color: white;
 }
@@ -231,13 +177,129 @@ body {
 }
 
 .recipe-container .tittle {
-  font-size: 1.1rem;
+  position: relative;
+  font-size: 1rem;
   text-align: center;
-  padding: 0.2rem;
 }
 
 .recipe-container .tittle h3 {
-  font-size: 3rem;
+  font-size: 3.5rem;
   padding: 1rem;
+}
+
+.recipe-container .tittle hr {
+  margin: 1rem 0;
+}
+
+.recipe-container .instructions {
+  text-align: center;
+  font-size: 1.5rem;
+}
+
+.recipe-container .instructions h5 {
+  font-size: 2rem;
+}
+
+.recipe-container .ingredients {
+  text-align: center;
+  font-size: 2rem;
+}
+
+.recipe-container .ingredients h5 {
+  margin-bottom: 1rem;
+}
+
+.recipe-container .ingredients .ingredients-table {
+  text-align: center;
+  margin: 1rem auto;
+  width: 100%;
+  font-size: 1.5rem;
+  border-collapse: collapse;
+}
+
+.recipe-container .ingredients .ingredients-table td {
+  border-bottom: 0.1rem solid black;
+  padding: 0.1rem;
+}
+
+.recipe-container .ingredients .ingredients-table th {
+  border-bottom: 0.1rem solid black;
+  padding: 0.3rem;
+}
+
+.recipe-container .btn-like {
+  position: absolute;
+  left: 0rem;
+  bottom: 0.5rem;
+}
+
+.recipe-container .edit-container {
+  position: absolute;
+  right: 0rem;
+  bottom: 0.5rem;
+}
+
+.recipe-container .edit-container p {
+  margin: 0.5rem 0;
+}
+
+.recipe-container .add-ingredient {
+  margin: auto;
+  font-size: 1rem;
+  width: 15rem;
+}
+
+.form {
+  width: 40rem;
+  min-height: 30rem;
+  background-color: white;
+  padding: 2rem;
+  border-radius: 1rem;
+  font-size: 2rem;
+}
+
+.form .input-container {
+  position: relative;
+  padding: 2.5rem 0;
+}
+
+.form .input-container:first-child {
+  padding-top: 3rem;
+}
+
+.form .input-container input {
+  width: 100%;
+  padding: 0rem 1rem;
+  border: none;
+  border-bottom: 0.1rem solid #201d1d;
+  outline: none;
+  font-size: 2rem;
+}
+
+.form .input-container input:focus + label,
+.form .input-container input:valid + label,
+.form .input-container input:hover + label {
+  -webkit-transform: translateY(-2.5rem);
+          transform: translateY(-2.5rem);
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
+  color: rgba(0, 0, 0, 0.8);
+}
+
+.form .input-container label {
+  position: absolute;
+  left: 0%;
+  bottom: 3rem;
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
+}
+
+.form .input-container label:first-child {
+  bottom: 3rem;
+}
+
+.form .input-container label:hover {
+  -webkit-transform: translateY(-2.5rem);
+          transform: translateY(-2.5rem);
 }
 /*# sourceMappingURL=main.css.map */
