@@ -33,10 +33,6 @@ export const SingleRecipe = (props) => {
     getRecipeInfo(id);
   }, []);
 
-  /*   useEffect(() => {
-    console.log(recipeInfo);
-  }, [recipeInfo]); */
-
   /* WAIT FOR STATES BEFORE RENDERING */
   useEffect(() => {
     if (recipeInfo && user) {
