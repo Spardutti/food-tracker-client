@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { getAllIngredients } from "../api/ingredient";
 import { IngredientsDropdown } from "./IngredientsDropdown";
+import { createNewRecipe } from "../api/recipe";
 
 export const CreateNewRecipe = () => {
   const [recipeName, setRecipeName] = useState("");
@@ -35,14 +36,21 @@ export const CreateNewRecipe = () => {
   /* CREATE FUNCTION */
   const createRecipe = async (e) => {
     e.preventDefault();
-    console.log(recipeName, ingredientName);
+
+    createNewRecipe(
+      recipeName,
+      recipeInstructions,
+      ingredientName,
+      ingredientQuantity,
+      ingredientUnit
+    );
   };
 
   const getAll = async () => {
     const ingredient = await getAllIngredients();
     if (ingredient) setAllIngredients(ingredient);
   };
-
+  console.log(ingredientName);
   useEffect(() => {
     getAll();
   }, []);
