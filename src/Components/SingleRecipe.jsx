@@ -159,7 +159,7 @@ export const SingleRecipe = (props) => {
             );
           })}
         </table>
-        {addNewIngredient ? <IngredientsDropdown arr={newIngredients} ingredientValue={}/> : null}
+        {addNewIngredient ? <IngredientsDropdown arr={newIngredients} /> : null}
         {edit && (
           <p className="btn add-ingredient" onClick={toggleIngredientForm}>
             add ingredient
