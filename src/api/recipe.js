@@ -81,6 +81,26 @@ export const removeRecipeIngredient = async (recipeId, ingredientId) => {
   return data;
 };
 
+/* ADD INGREDIENT TO RECIPE */
+export const addIngredientRecipe = async (
+  recipeId,
+  ingredientId,
+  ingredientQty,
+  ingredientUnit
+) => {
+  const response = await fetch(urlDev + "/recipe/ingredients/" + recipeId, {
+    method: "POST",
+    headers: params,
+    body: JSON.stringify({
+      ingredientName: ingredientId,
+      ingredientQty,
+      ingredientUnit,
+    }),
+  });
+  const data = await response.json();
+  return data;
+};
+
 /* CREATE NEW RECIPE */
 export const createNewRecipe = async (
   name,

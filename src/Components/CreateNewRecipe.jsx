@@ -70,9 +70,12 @@ export const CreateNewRecipe = () => {
         </div>
         <div className="input-container">
           <IngredientsDropdown
-            ingredients=""
-            valueKey={ingredientName}
-            onChangeKey={ingredientHandler}
+            arr={allIngredients}
+            ingredientHandler={ingredientHandler}
+            quantity={ingredientQuantity}
+            quantityHandler={quantityHandler}
+            unitHandler={unitHandler}
+            //submitAction={addIngredient}
           />
         </div>
         <div className="input-container">
