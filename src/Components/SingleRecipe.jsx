@@ -1,5 +1,10 @@
 import { useState, useEffect, useContext } from "react";
-import { deleteRecipe, dislikeRecipe, getRecipe } from "../api/recipe";
+import {
+  addIngredientRecipe,
+  deleteRecipe,
+  dislikeRecipe,
+  getRecipe,
+} from "../api/recipe";
 import { userContext } from "../context/userContext";
 import { likeRecipe } from "../api/recipe";
 import { useHistory } from "react-router";
@@ -18,9 +23,25 @@ export const SingleRecipe = (props) => {
   const [liked, setLiked] = useState();
   const [rating, setRating] = useState();
   const [edit, setEdit] = useState(false);
+  const [ingredient, setIngredient] = useState("");
+  const [qty, setQty] = useState("");
+  const [unit, setUnit] = useState("");
   const windowUrl = window.location.search;
   const params = new URLSearchParams(windowUrl);
   const { user } = useContext(userContext);
+
+  /* HANDLERS */
+  const ingredientHandler = (e) => {
+    setIngredient(e.target.value);
+  };
+
+  const qtyHandler = (e) => {
+    setQty(e.target.value);
+  };
+
+  const unitHandler = (e) => {
+    setUnit(e.target.value);
+  };
 
   /* GET RECIPE INFO */
   const getRecipeInfo = async (id) => {
@@ -44,22 +65,22 @@ export const SingleRecipe = (props) => {
     }
   }, [recipeInfo, user]);
 
-  /* LIKE RECIPE */
-  const submitLike = async () => {
-    await likeRecipe(recipeInfo._id);
-    setLiked(true);
-    setRating(rating + 1);
-  };
-
-  /* DISLIKE RECIPE */
-  const dislike = async () => {
-    await dislikeRecipe(recipeInfo._id);
-    setLiked(false);
-    setRating(rating - 1);
-  };
-
   /* LIKE DISLIKE RENDER*/
   const LikeDislike = () => {
+    /* LIKE RECIPE */
+    const submitLike = async () => {
+      await likeRecipe(recipeInfo._id);
+      setLiked(true);
+      setRating(rating + 1);
+    };
+
+    /* DISLIKE RECIPE */
+    const dislike = async () => {
+      await dislikeRecipe(recipeInfo._id);
+      setLiked(false);
+      setRating(rating - 1);
+    };
+
     if (liked) {
       return (
         <div className="btn btn-like" onClick={dislike}>
@@ -75,22 +96,22 @@ export const SingleRecipe = (props) => {
     }
   };
 
-  /* DELETE RECIPE */
-  const removeRecipe = async () => {
-    const response = await deleteRecipe(recipeInfo._id);
-    if (response) {
-      history.push("/home");
-    }
-  };
-
-  /* EDIT RECIPE */
-  const editRecipe = async () => {
-    setEdit(!edit);
-    setAddNewingredient(false);
-  };
-
   /* EDIT/DELETE FOR AUTHOR ONLY */
   const EditRecipe = () => {
+    /* DELETE RECIPE */
+    const removeRecipe = async () => {
+      const response = await deleteRecipe(recipeInfo._id);
+      if (response) {
+        history.push("/home");
+      }
+    };
+
+    /* EDIT RECIPE */
+    const editRecipe = async () => {
+      setEdit(!edit);
+      setAddNewingredient(false);
+    };
+
     if (recipeInfo.author._id === user._id) {
       return (
         <div className="edit-container">
@@ -105,25 +126,29 @@ export const SingleRecipe = (props) => {
     } else return null;
   };
 
-  /* REMOVE RECIPE INGREDIENT */
-  const removeIngredient = async (e) => {
-    const ingredientId = e.target.id;
-    const response = await removeRecipeIngredient(recipeInfo._id, ingredientId);
-    if (response) setRecipeIngredients(response.ingredients);
-  };
-
-  /* ADD NEW INGREDIENT */
-  const toggleIngredientForm = () => {
-    setAddNewingredient(!addNewIngredient);
-
-    let ingredientsNotYetInRecipe = newIngredients.filter((elem) =>
-      recipeIngredients.every((elem2) => elem2.ingredient._id !== elem._id)
-    );
-    setNewIngredients(ingredientsNotYetInRecipe);
-  };
-
   /* INGREDIENTS TABLE */
   const IngredientsTable = () => {
+    /* NEW INGREDIENT FORM */
+    const toggleIngredientForm = () => {
+      setAddNewingredient(!addNewIngredient);
+      if (addNewIngredient && edit) setEdit(false);
+      /* DISPLAY INGREDIENTS NOT CURRENTLY ON RECIPE */
+      let ingredientsNotYetInRecipe = newIngredients.filter((elem) =>
+        recipeIngredients.every((elem2) => elem2.ingredient._id !== elem._id)
+      );
+      setNewIngredients(ingredientsNotYetInRecipe);
+    };
+
+    /* REMOVE RECIPE INGREDIENT */
+    const removeIngredient = async (e) => {
+      const ingredientId = e.target.id;
+      const response = await removeRecipeIngredient(
+        recipeInfo._id,
+        ingredientId
+      );
+      if (response) setRecipeIngredients(response.ingredients);
+    };
+
     return (
       <div>
         <table className="ingredients-table">
@@ -135,11 +160,12 @@ export const SingleRecipe = (props) => {
               {edit && <th></th>}
             </tr>
           </thead>
-          {recipeIngredients.map((ingredient, index) => {
-            return (
-              <tbody key={index}>
-                <tr>
-                  <td>{ingredient.ingredient.name}</td>
+          <tbody>
+            {recipeIngredients.map((ingredient, index) => {
+              console.log(ingredient);
+              return (
+                <tr key={index}>
+                  <td>{ingredient.name}</td>
                   <td>{ingredient.quantity}</td>
                   <td>{ingredient.unit}</td>
                   {edit && (
@@ -151,19 +177,34 @@ export const SingleRecipe = (props) => {
                     </td>
                   )}
                 </tr>
-              </tbody>
-            );
-          })}
+              );
+            })}
+          </tbody>
         </table>
-        {addNewIngredient ? <IngredientsDropdown arr={newIngredients} /> : null}
         {edit && (
           <p className="btn add-ingredient" onClick={toggleIngredientForm}>
-            add ingredient
+            {addNewIngredient ? "close" : "add new ingredient"}
           </p>
         )}
       </div>
     );
   };
+
+  /* ADD NEW INGREDIENT */
+  const addIngredient = async () => {
+    const response = await addIngredientRecipe(
+      recipeInfo._id,
+      ingredient,
+      qty,
+      unit
+    );
+    console.log(response);
+    if (response) {
+      setRecipeIngredients(response.ingredients);
+    }
+  };
+
+  /* TODO FIX DROPDOWN AND ADD INGREDIENT */
 
   return render ? (
     <div className="recipe-container">
@@ -178,6 +219,16 @@ export const SingleRecipe = (props) => {
       <div className="ingredients">
         <h5>Ingredientes</h5>
         <IngredientsTable />
+        {addNewIngredient ? (
+          <IngredientsDropdown
+            arr={newIngredients}
+            ingredientHandler={ingredientHandler}
+            quantity={qty}
+            quantityHandler={qtyHandler}
+            unitHandler={unitHandler}
+            submitAction={addIngredient}
+          />
+        ) : null}
       </div>
       <div className="instructions">
         <h5>Preparacion</h5>
