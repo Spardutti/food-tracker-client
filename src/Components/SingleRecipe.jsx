@@ -6,14 +6,18 @@ import { useHistory } from "react-router";
 import Spinner from "../Components/styled/Spinner";
 import { removeRecipeIngredient } from "../api/recipe";
 import { IngredientsDropdown } from "./IngredientsDropdown";
+import { getAllIngredients } from "../api/ingredient";
 
 export const SingleRecipe = (props) => {
   const history = useHistory();
   const [recipeInfo, setRecipeInfo] = useState();
-  const [ingredients, SetIngredients] = useState([]);
+  const [recipeIngredients, setRecipeIngredients] = useState([]);
+  const [newIngredients, setNewIngredients] = useState([]);
+  const [addNewIngredient, setAddNewingredient] = useState(false);
   const [render, setRender] = useState(false);
   const [liked, setLiked] = useState();
   const [rating, setRating] = useState();
+  const [edit, setEdit] = useState(false);
   const windowUrl = window.location.search;
   const params = new URLSearchParams(windowUrl);
   const { user } = useContext(userContext);
@@ -21,6 +25,7 @@ export const SingleRecipe = (props) => {
   /* GET RECIPE INFO */
   const getRecipeInfo = async (id) => {
     setRecipeInfo(await getRecipe(id));
+    setNewIngredients(await getAllIngredients());
   };
 
   useEffect(() => {
@@ -28,17 +33,13 @@ export const SingleRecipe = (props) => {
     getRecipeInfo(id);
   }, []);
 
-  /*   useEffect(() => {
-    console.log(recipeInfo);
-  }, [recipeInfo]); */
-
   /* WAIT FOR STATES BEFORE RENDERING */
   useEffect(() => {
     if (recipeInfo && user) {
       if (recipeInfo.rating.indexOf(user._id) > -1) setLiked(true);
       else setLiked(false);
       setRating(recipeInfo.rating.length);
-      SetIngredients(recipeInfo.ingredients);
+      setRecipeIngredients(recipeInfo.ingredients);
       setRender(true);
     }
   }, [recipeInfo, user]);
@@ -84,8 +85,8 @@ export const SingleRecipe = (props) => {
 
   /* EDIT RECIPE */
   const editRecipe = async () => {
-    alert("CULON HAS ALGO PRODUCTIVO");
-    /* TODO edit  */
+    setEdit(!edit);
+    setAddNewingredient(false);
   };
 
   /* EDIT/DELETE FOR AUTHOR ONLY */
@@ -94,7 +95,7 @@ export const SingleRecipe = (props) => {
       return (
         <div className="edit-container">
           <p className="btn" onClick={editRecipe}>
-            Editar
+            {edit ? "close" : "editar"}
           </p>
           <p className="btn" onClick={removeRecipe}>
             Borrar
@@ -108,7 +109,17 @@ export const SingleRecipe = (props) => {
   const removeIngredient = async (e) => {
     const ingredientId = e.target.id;
     const response = await removeRecipeIngredient(recipeInfo._id, ingredientId);
-    if (response) SetIngredients(response.ingredients);
+    if (response) setRecipeIngredients(response.ingredients);
+  };
+
+  /* ADD NEW INGREDIENT */
+  const toggleIngredientForm = () => {
+    setAddNewingredient(!addNewIngredient);
+
+    let ingredientsNotYetInRecipe = newIngredients.filter((elem) =>
+      recipeIngredients.every((elem2) => elem2.ingredient._id !== elem._id)
+    );
+    setNewIngredients(ingredientsNotYetInRecipe);
   };
 
   /* INGREDIENTS TABLE */
@@ -121,25 +132,35 @@ export const SingleRecipe = (props) => {
               <th>Ingrediente</th>
               <th>Cantidad</th>
               <th>Unidad</th>
-              <th></th>
+              {edit && <th></th>}
             </tr>
           </thead>
-          {ingredients.map((ingredient, index) => {
+          {recipeIngredients.map((ingredient, index) => {
             return (
               <tbody key={index}>
                 <tr>
                   <td>{ingredient.ingredient.name}</td>
                   <td>{ingredient.quantity}</td>
                   <td>{ingredient.unit}</td>
-                  <td id={ingredient.ingredient._id} onClick={removeIngredient}>
-                    x
-                  </td>
+                  {edit && (
+                    <td
+                      id={ingredient.ingredient._id}
+                      onClick={removeIngredient}
+                    >
+                      x
+                    </td>
+                  )}
                 </tr>
               </tbody>
             );
           })}
         </table>
-        <p className="btn add-ingredient">add ingredient</p>
+        {addNewIngredient ? <IngredientsDropdown arr={newIngredients} /> : null}
+        {edit && (
+          <p className="btn add-ingredient" onClick={toggleIngredientForm}>
+            add ingredient
+          </p>
+        )}
       </div>
     );
   };
@@ -162,8 +183,6 @@ export const SingleRecipe = (props) => {
         <h5>Preparacion</h5>
         <p>{recipeInfo.instructions}</p>
       </div>
-      {/* TODO add new ing */}
-      <IngredientsDropdown ingredients={ingredients} />
     </div>
   ) : (
     <Spinner />

@@ -10,7 +10,10 @@ export const CreateNewRecipe = () => {
   const [ingredientName, setIngredientName] = useState("");
   const [ingredientQuantity, setIngredientQuantity] = useState("");
   const [ingredientUnit, setIngredientUnit] = useState("");
+<<<<<<< HEAD
   const [allIngredients, setAllIngredients] = useState([]);
+=======
+>>>>>>> 7d24436026f026ac7d61e54c0b8ec43fc1728bf9
 
   /* HANDLERS */
   const nameHandler = (e) => {
@@ -34,6 +37,7 @@ export const CreateNewRecipe = () => {
   };
 
   /* CREATE FUNCTION */
+<<<<<<< HEAD
   const createRecipe = async (e) => {
     e.preventDefault();
 
@@ -61,10 +65,20 @@ export const CreateNewRecipe = () => {
     setRecipeIngredients(add);
   };
 
+=======
+  const createRecipe = async (e) => {};
+
+  const [allIngredients, setAllIngredients] = useState([]);
+
+>>>>>>> 7d24436026f026ac7d61e54c0b8ec43fc1728bf9
   const getAll = async () => {
     const ingredient = await getAllIngredients();
     if (ingredient) setAllIngredients(ingredient);
   };
+<<<<<<< HEAD
+=======
+
+>>>>>>> 7d24436026f026ac7d61e54c0b8ec43fc1728bf9
   useEffect(() => {
     getAll();
   }, []);
@@ -94,7 +108,11 @@ export const CreateNewRecipe = () => {
         </div>
         <div className="input-container">
           <IngredientsDropdown
+<<<<<<< HEAD
             ingredients={allIngredients}
+=======
+            ingredients=""
+>>>>>>> 7d24436026f026ac7d61e54c0b8ec43fc1728bf9
             valueKey={ingredientName}
             onChangeKey={ingredientHandler}
           />
@@ -117,6 +135,7 @@ export const CreateNewRecipe = () => {
           </select>
         </div>
         <div className="btn-container">
+<<<<<<< HEAD
           <button className="btn btn-main" onClick={addIngredient}>
             Add Ingredient
           </button>
@@ -124,6 +143,10 @@ export const CreateNewRecipe = () => {
         <div className="btn-container">
           <button className="btn btn-main" onClick={createRecipe}>
             Create Recipe
+=======
+          <button className="btn btn-main" onClick={(e) => createRecipe(e)}>
+            Create
+>>>>>>> 7d24436026f026ac7d61e54c0b8ec43fc1728bf9
           </button>
         </div>
       </form>
