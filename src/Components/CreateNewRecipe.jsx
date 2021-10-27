@@ -41,6 +41,21 @@ export const CreateNewRecipe = () => {
     if (ingredient) setAllIngredients(ingredient);
   };
 
+  /* ADD INGREDIENT TO RECIPE */
+  const addIngredient = async (e) => {
+    e.preventDefault();
+
+    let add = recipeIngredients;
+
+    add.push({
+      ingredient: ingredientName,
+      quantity: ingredientQuantity,
+      unit: ingredientUnit,
+    });
+    console.log(add, recipeIngredients);
+    setRecipeIngredients(add);
+  };
+
   useEffect(() => {
     getAll();
   }, []);

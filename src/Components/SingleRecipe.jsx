@@ -169,10 +169,7 @@ export const SingleRecipe = (props) => {
                   <td>{ingredient.quantity}</td>
                   <td>{ingredient.unit}</td>
                   {edit && (
-                    <td
-                      id={ingredient.ingredient._id}
-                      onClick={removeIngredient}
-                    >
+                    <td id={ingredient._id} onClick={removeIngredient}>
                       x
                     </td>
                   )}
@@ -198,7 +195,6 @@ export const SingleRecipe = (props) => {
       qty,
       unit
     );
-    console.log(response);
     if (response) {
       setRecipeIngredients(response.ingredients);
     }
