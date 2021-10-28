@@ -52,10 +52,11 @@ export const CreateNewRecipe = () => {
   };
 
   /* ADD INGREDIENT TO RECIPE */
+  let add = [];
   const addIngredient = async (e) => {
     e.preventDefault();
 
-    let add = recipeIngredients;
+    add = recipeIngredients;
 
     add.push({
       ingredientId: ingredientID,
@@ -93,6 +94,17 @@ export const CreateNewRecipe = () => {
             value={recipeInstructions}
           />
           <label htmlFor="">Instrucciones</label>
+        </div>
+        <div>
+          <p className="text">
+            {add.map((add, index) => {
+              return (
+                <li value={add.name} key={index}>
+                  {add.name}
+                </li>
+              );
+            })}
+          </p>
         </div>
         <div className="input-container">
           <IngredientsDropdown
