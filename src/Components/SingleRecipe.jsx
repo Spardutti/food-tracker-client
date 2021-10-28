@@ -162,14 +162,13 @@ export const SingleRecipe = (props) => {
           </thead>
           <tbody>
             {recipeIngredients.map((ingredient, index) => {
-              console.log(ingredient);
               return (
                 <tr key={index}>
                   <td>{ingredient.name}</td>
                   <td>{ingredient.quantity}</td>
                   <td>{ingredient.unit}</td>
                   {edit && (
-                    <td id={ingredient._id} onClick={removeIngredient}>
+                    <td id={ingredient.ingredientId} onClick={removeIngredient}>
                       x
                     </td>
                   )}
@@ -192,8 +191,9 @@ export const SingleRecipe = (props) => {
     const response = await addIngredientRecipe(
       recipeInfo._id,
       ingredient,
-      qty,
-      unit
+      ingredient,
+      unit,
+      qty
     );
     if (response) {
       setRecipeIngredients(response.ingredients);

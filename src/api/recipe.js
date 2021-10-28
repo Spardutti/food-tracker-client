@@ -85,6 +85,7 @@ export const removeRecipeIngredient = async (recipeId, ingredientId) => {
 export const addIngredientRecipe = async (
   recipeId,
   ingredientId,
+  ingredientName,
   ingredientQty,
   ingredientUnit
 ) => {
@@ -92,12 +93,14 @@ export const addIngredientRecipe = async (
     method: "POST",
     headers: params,
     body: JSON.stringify({
-      ingredientName: ingredientId,
-      ingredientQty,
-      ingredientUnit,
+      ingredientId,
+      name: ingredientName,
+      quantity: ingredientQty,
+      unit: ingredientUnit,
     }),
   });
   const data = await response.json();
+  console.log(data);
   return data;
 };
 

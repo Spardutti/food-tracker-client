@@ -30,7 +30,7 @@ export const IngredientsDropdown = (props) => {
           onChange={quantityHandler}
           value={quantity}
         />
-        <label htmlFor="">Cantidad</label>
+        <label>Cantidad</label>
       </div>
       <div className="input-container">
         <select onChange={unitHandler} defaultValue="" required>

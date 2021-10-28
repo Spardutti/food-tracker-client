@@ -23,9 +23,9 @@ export const CreateNewRecipe = () => {
   };
 
   const ingredientNameHandler = (e) => {
-    setIngredientID(e.target.id);
+    let index = e.target.selectedIndex;
+    setIngredientID(e.target.childNodes[index].id);
     setIngredientName(e.target.value);
-    console.log(ingredientName, ingredientID, e.target);
   };
 
   const quantityHandler = (e) => {
