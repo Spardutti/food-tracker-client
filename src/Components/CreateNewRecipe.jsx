@@ -1,11 +1,13 @@
 import { useState, useEffect } from "react";
 import { getAllIngredients } from "../api/ingredient";
 import { IngredientsDropdown } from "./IngredientsDropdown";
+import { createNewRecipe } from "../api/recipe";
 
 export const CreateNewRecipe = () => {
   const [recipeName, setRecipeName] = useState("");
   const [recipeInstructions, setRecipeInstructions] = useState("");
   const [recipeIngredients, setRecipeIngredients] = useState([]);
+  const [ingredientID, setIngredientID] = useState("");
   const [ingredientName, setIngredientName] = useState("");
   const [ingredientQuantity, setIngredientQuantity] = useState("");
   const [ingredientUnit, setIngredientUnit] = useState("");
@@ -20,8 +22,10 @@ export const CreateNewRecipe = () => {
     setRecipeInstructions(e.target.value);
   };
 
-  const ingredientHandler = (e) => {
+  const ingredientNameHandler = (e) => {
+    setIngredientID(e.target.id);
     setIngredientName(e.target.value);
+    console.log(ingredientName, ingredientID, e.target);
   };
 
   const quantityHandler = (e) => {
@@ -33,10 +37,17 @@ export const CreateNewRecipe = () => {
   };
 
   /* CREATE FUNCTION */
-  const createRecipe = async (e) => {};
+  const createRecipe = async (e) => {
+    e.preventDefault();
 
+    createNewRecipe(recipeName, recipeInstructions, recipeIngredients);
+    console.log(allIngredients, ingredientID);
+  };
+
+  /* GET ALL INGREDIENTS INFO */
   const getAll = async () => {
     const ingredient = await getAllIngredients();
+
     if (ingredient) setAllIngredients(ingredient);
   };
 
@@ -47,11 +58,12 @@ export const CreateNewRecipe = () => {
     let add = recipeIngredients;
 
     add.push({
-      ingredient: ingredientName,
+      ingredientId: ingredientID,
+      name: ingredientName,
       quantity: ingredientQuantity,
       unit: ingredientUnit,
     });
-    console.log(add, recipeIngredients);
+    console.log(add, recipeIngredients, ingredientID);
     setRecipeIngredients(add);
   };
 
@@ -85,33 +97,16 @@ export const CreateNewRecipe = () => {
         <div className="input-container">
           <IngredientsDropdown
             arr={allIngredients}
-            ingredientHandler={ingredientHandler}
+            ingredientNameHandler={ingredientNameHandler}
             quantity={ingredientQuantity}
             quantityHandler={quantityHandler}
             unitHandler={unitHandler}
             submitAction={addIngredient}
           />
         </div>
-        <div className="input-container">
-          <input
-            type="text"
-            required
-            autoComplete="off"
-            onChange={quantityHandler}
-            value={ingredientQuantity}
-          />
-          <label htmlFor="">Cantidad</label>
-        </div>
-        <div className="input-container">
-          <select name="" id="" onChange={unitHandler} value={ingredientUnit}>
-            <option value=""></option>
-            <option value="Grs">Grs.</option>
-            <option value="Ml">Ml.</option>
-          </select>
-        </div>
         <div className="btn-container">
           <button className="btn btn-main" onClick={(e) => createRecipe(e)}>
-            Create
+            Crear
           </button>
         </div>
       </form>

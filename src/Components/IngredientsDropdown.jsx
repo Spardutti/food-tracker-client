@@ -1,7 +1,7 @@
 export const IngredientsDropdown = (props) => {
   const {
     arr,
-    ingredientHandler,
+    ingredientNameHandler,
     quantity,
     quantityHandler,
     unitHandler,
@@ -10,13 +10,13 @@ export const IngredientsDropdown = (props) => {
 
   return (
     <div className="form">
-      <select onChange={ingredientHandler} defaultValue="" required>
+      <select onChange={ingredientNameHandler} defaultValue="" required>
         <option disabled value="">
           Escoge un ingrediente
         </option>
         {arr.map((ingredient, index) => {
           return (
-            <option value={ingredient._id} key={index}>
+            <option value={ingredient.name} id={ingredient._id} key={index}>
               {ingredient.name}
             </option>
           );
@@ -42,7 +42,7 @@ export const IngredientsDropdown = (props) => {
         </select>
       </div>
       <p className="btn" onClick={submitAction}>
-        Add
+        Agregar
       </p>
     </div>
   );

@@ -102,22 +102,14 @@ export const addIngredientRecipe = async (
 };
 
 /* CREATE NEW RECIPE */
-export const createNewRecipe = async (
-  name,
-  instructions,
-  ingredientId,
-  qty,
-  unit
-) => {
+export const createNewRecipe = async (name, instructions, ingredients) => {
   const response = await fetch(urlDev + "/recipe/new", {
     method: "POST",
     headers: params,
     body: JSON.stringify({
       name,
       instructions,
-      ingredientId,
-      qty,
-      unit,
+      ingredients,
     }),
   });
   const data = await response.json();
