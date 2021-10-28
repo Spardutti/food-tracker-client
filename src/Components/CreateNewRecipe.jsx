@@ -52,20 +52,19 @@ export const CreateNewRecipe = () => {
   };
 
   /* ADD INGREDIENT TO RECIPE */
-  let add = [];
   const addIngredient = async (e) => {
     e.preventDefault();
 
-    add = recipeIngredients;
+    let preRecipeIngredients = recipeIngredients;
 
-    add.push({
+    preRecipeIngredients.push({
       ingredientId: ingredientID,
       name: ingredientName,
       quantity: ingredientQuantity,
       unit: ingredientUnit,
     });
-    console.log(add, recipeIngredients, ingredientID);
-    setRecipeIngredients(add);
+    console.log(preRecipeIngredients, recipeIngredients, ingredientID);
+    setRecipeIngredients(preRecipeIngredients);
   };
 
   useEffect(() => {
@@ -96,15 +95,17 @@ export const CreateNewRecipe = () => {
           <label htmlFor="">Instrucciones</label>
         </div>
         <div>
-          <p className="text">
-            {add.map((add, index) => {
-              return (
-                <li value={add.name} key={index}>
-                  {add.name}
-                </li>
-              );
-            })}
-          </p>
+          {recipeIngredients ? (
+            <ul className="ingredient-list">
+              {recipeIngredients.map((ingredient, index) => {
+                return (
+                  <li value={ingredient.name} key={index}>
+                    {ingredient.name}
+                  </li>
+                );
+              })}
+            </ul>
+          ) : null}
         </div>
         <div className="input-container">
           <IngredientsDropdown
