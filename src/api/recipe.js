@@ -99,8 +99,8 @@ export const addIngredientRecipe = async (
       unit: ingredientUnit,
     }),
   });
+  console.log(ingredientName, ingredientId);
   const data = await response.json();
-  console.log(data);
   return data;
 };
 

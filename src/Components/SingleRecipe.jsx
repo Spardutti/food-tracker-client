@@ -19,6 +19,7 @@ export const SingleRecipe = (props) => {
   const [recipeIngredients, setRecipeIngredients] = useState([]);
   const [newIngredients, setNewIngredients] = useState([]);
   const [addNewIngredient, setAddNewingredient] = useState(false);
+  const [ingredientId, setIngredientId] = useState("");
   const [render, setRender] = useState(false);
   const [liked, setLiked] = useState();
   const [rating, setRating] = useState();
@@ -32,6 +33,8 @@ export const SingleRecipe = (props) => {
 
   /* HANDLERS */
   const ingredientHandler = (e) => {
+    let index = e.target.selectedIndex;
+    setIngredientId(e.target.childNodes[index].id);
     setIngredient(e.target.value);
   };
 
@@ -134,7 +137,7 @@ export const SingleRecipe = (props) => {
       if (addNewIngredient && edit) setEdit(false);
       /* DISPLAY INGREDIENTS NOT CURRENTLY ON RECIPE */
       let ingredientsNotYetInRecipe = newIngredients.filter((elem) =>
-        recipeIngredients.every((elem2) => elem2.ingredient._id !== elem._id)
+        recipeIngredients.every((elem2) => elem2.ingredientId !== elem._id)
       );
       setNewIngredients(ingredientsNotYetInRecipe);
     };
@@ -190,10 +193,10 @@ export const SingleRecipe = (props) => {
   const addIngredient = async () => {
     const response = await addIngredientRecipe(
       recipeInfo._id,
+      ingredientId,
       ingredient,
-      ingredient,
-      unit,
-      qty
+      qty,
+      unit
     );
     if (response) {
       setRecipeIngredients(response.ingredients);
@@ -218,7 +221,7 @@ export const SingleRecipe = (props) => {
         {addNewIngredient ? (
           <IngredientsDropdown
             arr={newIngredients}
-            ingredientHandler={ingredientHandler}
+            ingredientNameHandler={ingredientHandler}
             quantity={qty}
             quantityHandler={qtyHandler}
             unitHandler={unitHandler}
