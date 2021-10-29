@@ -53,18 +53,21 @@ export const CreateNewRecipe = () => {
 
   /* ADD INGREDIENT TO RECIPE */
   const addIngredient = async (e) => {
-    e.preventDefault();
-
-    let preRecipeIngredients = recipeIngredients;
-
-    preRecipeIngredients.push({
+    let preRecipeIngredients = {
       ingredientId: ingredientID,
       name: ingredientName,
       quantity: ingredientQuantity,
       unit: ingredientUnit,
-    });
+    };
     console.log(preRecipeIngredients, recipeIngredients, ingredientID);
-    setRecipeIngredients(preRecipeIngredients);
+    setRecipeIngredients((prev) => [...prev, preRecipeIngredients]);
+    let newDropDownArray = allIngredients;
+    for (let i = 0; i < newDropDownArray.length; i++) {
+      if (newDropDownArray[i].name === preRecipeIngredients.name) {
+        newDropDownArray.splice([i], 1);
+      }
+    }
+    setAllIngredients(newDropDownArray);
   };
 
   useEffect(() => {
