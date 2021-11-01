@@ -1,3 +1,5 @@
+import { Units } from "./styled/Unit";
+
 export const IngredientsDropdown = (props) => {
   const {
     arr,
@@ -32,15 +34,7 @@ export const IngredientsDropdown = (props) => {
         />
         <label>Cantidad</label>
       </div>
-      <div className="input-container">
-        <select onChange={unitHandler} defaultValue="" required>
-          <option value="" disabled>
-            Escoge tipo de unidad
-          </option>
-          <option value="Grs">Grs.</option>
-          <option value="Ml">Ml.</option>
-        </select>
-      </div>
+      <Units unitHandler={unitHandler} />
       <p className="btn" onClick={submitAction}>
         Agregar
       </p>

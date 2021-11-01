@@ -99,7 +99,6 @@ export const addIngredientRecipe = async (
       unit: ingredientUnit,
     }),
   });
-  console.log(ingredientName, ingredientId);
   const data = await response.json();
   return data;
 };
@@ -116,6 +115,19 @@ export const createNewRecipe = async (name, instructions, ingredients) => {
     }),
   });
   const data = await response.json();
-  console.log(data);
+  return data;
+};
+
+/* UPDATE RECIPE NAME */
+export const updateRecipeName = async (recipeId, recipeName) => {
+  const response = await fetch(`${urlDev}/recipe/name/${recipeId}`, {
+    method: "PATCH",
+    headers: params,
+    body: JSON.stringify({
+      name: recipeName,
+    }),
+  });
+  if (response.status === 500) return response;
+  const data = await response.json();
   return data;
 };

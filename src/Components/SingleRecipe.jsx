@@ -4,6 +4,7 @@ import {
   deleteRecipe,
   dislikeRecipe,
   getRecipe,
+  updateRecipeName,
 } from "../api/recipe";
 import { userContext } from "../context/userContext";
 import { likeRecipe } from "../api/recipe";
@@ -16,6 +17,7 @@ import { getAllIngredients } from "../api/ingredient";
 export const SingleRecipe = (props) => {
   const history = useHistory();
   const [recipeInfo, setRecipeInfo] = useState();
+  const [recipeName, setRecipeName] = useState("");
   const [recipeIngredients, setRecipeIngredients] = useState([]);
   const [newIngredients, setNewIngredients] = useState([]);
   const [addNewIngredient, setAddNewingredient] = useState(false);
@@ -46,10 +48,16 @@ export const SingleRecipe = (props) => {
     setUnit(e.target.value);
   };
 
+  const nameHandler = (e) => {
+    setRecipeName(e.target.value);
+  };
+
   /* GET RECIPE INFO */
   const getRecipeInfo = async (id) => {
-    setRecipeInfo(await getRecipe(id));
+    const recipe = await getRecipe(id);
+    setRecipeInfo(recipe);
     setNewIngredients(await getAllIngredients());
+    setRecipeName(recipe.name);
   };
 
   useEffect(() => {
@@ -129,17 +137,21 @@ export const SingleRecipe = (props) => {
     } else return null;
   };
 
+  /* CONST GET AVAILABLE INGREDIENTS */
+  const getAvailableIngredients = () => {
+    let ingredientsNotYetInRecipe = newIngredients.filter((elem) =>
+      recipeIngredients.every((elem2) => elem2.ingredientId !== elem._id)
+    );
+    setNewIngredients(ingredientsNotYetInRecipe);
+  };
+
   /* INGREDIENTS TABLE */
   const IngredientsTable = () => {
     /* NEW INGREDIENT FORM */
     const toggleIngredientForm = () => {
       setAddNewingredient(!addNewIngredient);
-      if (addNewIngredient && edit) setEdit(false);
-      /* DISPLAY INGREDIENTS NOT CURRENTLY ON RECIPE */
-      let ingredientsNotYetInRecipe = newIngredients.filter((elem) =>
-        recipeIngredients.every((elem2) => elem2.ingredientId !== elem._id)
-      );
-      setNewIngredients(ingredientsNotYetInRecipe);
+      //if (addNewIngredient && edit) setEdit(false);
+      getAvailableIngredients();
     };
 
     /* REMOVE RECIPE INGREDIENT */
@@ -149,7 +161,9 @@ export const SingleRecipe = (props) => {
         recipeInfo._id,
         ingredientId
       );
-      if (response) setRecipeIngredients(response.ingredients);
+      if (response) {
+        setRecipeIngredients(response.ingredients);
+      }
     };
 
     return (
@@ -189,6 +203,14 @@ export const SingleRecipe = (props) => {
     );
   };
 
+  /* RESET INGREDIENT STATE */
+  const resetIngredients = () => {
+    setIngredientId("");
+    setIngredient("");
+    setQty("");
+    setUnit("");
+  };
+
   /* ADD NEW INGREDIENT */
   const addIngredient = async () => {
     const response = await addIngredientRecipe(
@@ -200,15 +222,36 @@ export const SingleRecipe = (props) => {
     );
     if (response) {
       setRecipeIngredients(response.ingredients);
+      getAvailableIngredients();
+      setAddNewingredient(false);
+      resetIngredients();
     }
   };
 
-  /* TODO FIX DROPDOWN AND ADD INGREDIENT */
+  /* UPDATE RECIPE NAME */
+  const updateName = async () => {
+    const response = await updateRecipeName(recipeInfo._id, recipeName);
+    if (response.status !== 500) {
+      setRecipeName(response.name);
+      setEdit(false);
+    } else {
+      alert("Name already in use");
+    }
+  };
 
   return render ? (
     <div className="recipe-container">
       <div className="tittle">
-        <h3>{recipeInfo.name}</h3>
+        {edit ? (
+          <div>
+            <input type="text" value={recipeName} onChange={nameHandler} />
+            <p className="btn" onClick={updateName}>
+              cambiar
+            </p>
+          </div>
+        ) : (
+          <h3>{recipeName}</h3>
+        )}
         <p>Creado Por: {recipeInfo.author.username}</p>
         <p>Calificacion {rating}</p>
         <LikeDislike />
