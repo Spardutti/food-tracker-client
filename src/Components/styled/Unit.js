@@ -1,5 +1,3 @@
-import styled from "styled-components";
-
 const units = ["gr", "ml", "kg", "unidad"];
 
 export const Units = (props) => {

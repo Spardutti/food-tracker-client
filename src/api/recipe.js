@@ -1,5 +1,3 @@
-import { checkLocalToken } from "./user";
-
 const urlDev = "http://localhost:5000";
 
 const params = {
@@ -128,6 +126,51 @@ export const updateRecipeName = async (recipeId, recipeName) => {
     }),
   });
   if (response.status === 500) return response;
+  const data = await response.json();
+  return data;
+};
+
+/* ADD NEW COMMENT TO RECIPE */
+export const addNewComment = async (recipeId, commentText) => {
+  const response = await fetch(`${urlDev}/recipe/newComment`, {
+    method: "POST",
+    headers: params,
+    body: JSON.stringify({
+      text: commentText,
+      recipeId,
+    }),
+  });
+  if (response.status === 500) return response;
+  const data = await response.json();
+  return data;
+};
+
+/* DELETE RECIPE COMMENT */
+export const deleteComment = async (recipeId, commentId) => {
+  const response = await fetch(`${urlDev}/recipe/comment/${recipeId}`, {
+    method: "DELETE",
+    headers: params,
+    body: JSON.stringify({
+      commentId,
+    }),
+  });
+  if (response.status === 500) return response;
+  const data = await response.json();
+  return data;
+};
+
+/* EDIT COMMENT TEXT */
+export const editCommentText = async (recipeId, commentId, text) => {
+  const response = await fetch(`${urlDev}/recipe/comment/${recipeId}`, {
+    method: "PATCH",
+    headers: params,
+    body: JSON.stringify({
+      commentId,
+      text,
+    }),
+  });
+  if (response.status === 500) return response;
+
   const data = await response.json();
   return data;
 };

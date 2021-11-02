@@ -1,7 +1,7 @@
 import { Home } from "./Components/Home";
 import { NavBar } from "./Components/NavBar";
-import { BrowserRouter, Switch, Route } from "react-router-dom";
-import { SingleRecipe } from "./Components/SingleRecipe";
+import { Switch, Route } from "react-router-dom";
+import { SingleRecipe } from "./Components/SingleRecipe/SingleRecipe";
 import { Login } from "./Components/Login";
 import "./sass/main.css";
 import { userContext } from "./context/userContext";

@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { newLocalUser } from "../api/user";
 import Spinner from "./styled/Spinner";
 import { useHistory } from "react-router-dom";

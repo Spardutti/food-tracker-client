@@ -302,4 +302,32 @@ body {
   -webkit-transform: translateY(-2.5rem);
           transform: translateY(-2.5rem);
 }
+
+.comments-container {
+  padding: 0.5rem 0;
+}
+
+.comments-container .comment-container {
+  margin: 1rem 1rem;
+  padding: 0.5rem 1rem;
+  position: relative;
+}
+
+.comments-container .comment-container .text {
+  font-size: 1.5rem;
+  text-align: left;
+  word-wrap: break-word;
+}
+
+.comments-container .comment-container .info {
+  margin-top: 1rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.comments-container .comment-container .info div {
+  width: 100%;
+  text-align: center;
+}
 /*# sourceMappingURL=main.css.map */

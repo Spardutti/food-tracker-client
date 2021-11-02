@@ -1,4 +1,4 @@
-import { Link, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 export const RecipeCard = ({ name, image, instructions, id, rating }) => {
   const history = useHistory();

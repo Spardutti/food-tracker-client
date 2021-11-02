@@ -1,5 +1,3 @@
-import { useState, useEffect } from "react";
-
 /* WELCOME SCREEN */
 export const WelcomeScreen = () => {
   return (
