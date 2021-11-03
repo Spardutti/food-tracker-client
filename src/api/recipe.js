@@ -36,6 +36,15 @@ export const getAllRecipes = async () => {
   return data;
 };
 
+/* GET RECIPE BY AUTHOR */
+export const recipesByAuthor = async () => {
+  const response = await fetch(`${urlDev}/recipe/author`, {
+    headers: params,
+  });
+  const data = await response.json();
+  return data;
+};
+
 /* LIKE RECIPE */
 export const likeRecipe = async (id) => {
   const response = await fetch(urlDev + "/recipe/like/" + id, {

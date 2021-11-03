@@ -64,3 +64,26 @@ export const getUser = async () => {
   const data = await response.json();
   return data;
 };
+
+/* ADD INGREDIENT TO USER FRIDGE */
+export const addIngredientToFridge = async (
+  ingredientId,
+  ingredientQty,
+  ingredientUnit,
+  ingredientName
+) => {
+  const response = await fetch(`${urlDev}/user/ingredientadd`, {
+    method: "POST",
+    headers: params,
+    body: JSON.stringify({
+      ingredient: ingredientId,
+      name: ingredientName,
+      quantity: ingredientQty,
+      unit: ingredientUnit,
+    }),
+  });
+  if (response.status === 500) return response.status;
+
+  const data = await response.json();
+  return data;
+};

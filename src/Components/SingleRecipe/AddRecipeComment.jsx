@@ -32,12 +32,12 @@ export const AddRecipeComment = ({ recipeInfo, setRecipeComments }) => {
       {addCommentForm ? (
         <div className="form">
           <div className="input-container">
-            <input
+            <textarea
               type="text"
               onChange={commentTextHandler}
               value={commentText}
+              placeholder="Escribe tu opinion"
             />
-            <label htmlFor="">Escribe un comentario</label>
           </div>
           <div>
             <p className="btn" onClick={addComment}>

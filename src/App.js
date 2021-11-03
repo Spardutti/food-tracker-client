@@ -6,7 +6,7 @@ import { Login } from "./Components/Login";
 import "./sass/main.css";
 import { userContext } from "./context/userContext";
 import { useState, useEffect } from "react";
-import { Profile } from "./Components/Profile";
+import { Profile } from "./Components/Profile/Profile";
 import { WelcomeScreen } from "./Components/WelcomeScreen";
 import { checkLocalToken, getUser } from "./api/user";
 import { useHistory } from "react-router";
