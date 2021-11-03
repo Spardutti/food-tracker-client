@@ -1,7 +1,5 @@
-import { removeRecipeIngredient, addIngredientRecipe } from "../../api/recipe";
-import { getAllIngredients } from "../../api/ingredient";
+import { removeRecipeIngredient } from "../../api/recipe";
 import { IngredientsDropdown } from "../IngredientsDropdown";
-import { useState, useEffect } from "react";
 
 export const IngredientsTable = ({
   setAddNewingredient,
@@ -11,48 +9,10 @@ export const IngredientsTable = ({
   edit,
   recipeIngredients,
 }) => {
-  const [ingredient, setIngredient] = useState("");
-  const [qty, setQty] = useState("");
-  const [unit, setUnit] = useState("");
-  const [ingredientId, setIngredientId] = useState("");
-  const [newIngredients, setNewIngredients] = useState([]);
-
-  /* HANDLERS */
-  const ingredientHandler = (e) => {
-    let index = e.target.selectedIndex;
-    setIngredientId(e.target.childNodes[index].id);
-    setIngredient(e.target.value);
-  };
-
-  const qtyHandler = (e) => {
-    setQty(e.target.value);
-  };
-
-  const unitHandler = (e) => {
-    setUnit(e.target.value);
-  };
-
-  /* GET RECIPE INGREDIENTS */
-  const getIngredients = async () => {
-    setNewIngredients(await getAllIngredients());
-  };
-
-  useEffect(() => {
-    getIngredients();
-  }, []);
-
-  /* CONST GET AVAILABLE INGREDIENTS */
-  const getAvailableIngredients = () => {
-    let ingredientsNotYetInRecipe = newIngredients.filter((elem) =>
-      recipeIngredients.every((elem2) => elem2.ingredientId !== elem._id)
-    );
-    setNewIngredients(ingredientsNotYetInRecipe);
-  };
-
   /* NEW INGREDIENT FORM */
   const toggleIngredientForm = () => {
     setAddNewingredient(!addNewIngredient);
-    getAvailableIngredients();
+    //getAvailableIngredients();
   };
 
   /* REMOVE RECIPE INGREDIENT */
@@ -62,31 +22,6 @@ export const IngredientsTable = ({
     if (response) {
       setRecipeIngredients(response.ingredients);
     }
-  };
-
-  /* ADD NEW INGREDIENT */
-  const addIngredient = async () => {
-    const response = await addIngredientRecipe(
-      recipeInfo._id,
-      ingredientId,
-      ingredient,
-      qty,
-      unit
-    );
-    if (response) {
-      setRecipeIngredients(response.ingredients);
-      getAvailableIngredients();
-      setAddNewingredient(false);
-      resetIngredients();
-    }
-  };
-
-  /* RESET INGREDIENT STATE */
-  const resetIngredients = () => {
-    setIngredientId("");
-    setIngredient("");
-    setQty("");
-    setUnit("");
   };
 
   return (
@@ -124,12 +59,10 @@ export const IngredientsTable = ({
       ) : null}
       {addNewIngredient ? (
         <IngredientsDropdown
-          arr={newIngredients}
-          ingredientNameHandler={ingredientHandler}
-          quantity={qty}
-          quantityHandler={qtyHandler}
-          unitHandler={unitHandler}
-          submitAction={addIngredient}
+          setToggle={setAddNewingredient}
+          recipeInfo={recipeInfo}
+          setUpdatedArr={setRecipeIngredients}
+          updatedArr={recipeIngredients}
         />
       ) : null}
     </div>
