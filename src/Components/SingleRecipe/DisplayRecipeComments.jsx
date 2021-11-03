@@ -50,7 +50,7 @@ export const DisplayRecipeComments = ({
       <div className="info">
         <div>
           <p>{comment.username}</p>
-          <p>{comment.dateCreated}</p>
+          <p>{Moment(comment.dateCreated).fromNow()}</p>
         </div>
 
         {comment.author === user._id ? (

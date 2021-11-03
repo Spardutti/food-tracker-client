@@ -1,13 +1,7 @@
 import { useState, useEffect, useContext } from "react";
-import {
-  addIngredientRecipe,
-  getRecipe,
-  updateRecipeName,
-} from "../../api/recipe";
+import { getRecipe, updateRecipeName } from "../../api/recipe";
 import { userContext } from "../../context/userContext";
 import Spinner from "../styled/Spinner";
-import { IngredientsDropdown } from "../IngredientsDropdown";
-import { getAllIngredients } from "../../api/ingredient";
 import { LikeDislike } from "./LikeDislike";
 import { EditDelete } from "./EditDelete";
 import { IngredientsTable } from "./IngredientsTable";
@@ -19,16 +13,12 @@ export const SingleRecipe = (props) => {
   const [recipeInfo, setRecipeInfo] = useState();
   const [recipeName, setRecipeName] = useState("");
   const [recipeIngredients, setRecipeIngredients] = useState([]);
-  const [newIngredients, setNewIngredients] = useState([]);
   const [addNewIngredient, setAddNewingredient] = useState(false);
-  const [ingredientId, setIngredientId] = useState("");
   const [render, setRender] = useState(false);
   const [liked, setLiked] = useState();
   const [rating, setRating] = useState();
   const [edit, setEdit] = useState(false);
-  const [ingredient, setIngredient] = useState("");
-  const [qty, setQty] = useState("");
-  const [unit, setUnit] = useState("");
+
   const [recipeComments, setRecipeComments] = useState([]);
 
   /* CONTEXT */
@@ -36,21 +26,6 @@ export const SingleRecipe = (props) => {
 
   const windowUrl = window.location.search;
   const params = new URLSearchParams(windowUrl);
-
-  /* HANDLERS */
-  const ingredientHandler = (e) => {
-    let index = e.target.selectedIndex;
-    setIngredientId(e.target.childNodes[index].id);
-    setIngredient(e.target.value);
-  };
-
-  const qtyHandler = (e) => {
-    setQty(e.target.value);
-  };
-
-  const unitHandler = (e) => {
-    setUnit(e.target.value);
-  };
 
   const nameHandler = (e) => {
     setRecipeName(e.target.value);
@@ -60,7 +35,6 @@ export const SingleRecipe = (props) => {
   const getRecipeInfo = async (id) => {
     const recipe = await getRecipe(id);
     setRecipeInfo(recipe);
-    setNewIngredients(await getAllIngredients());
     setRecipeName(recipe.name);
     setRecipeComments(recipe.comments);
   };
@@ -81,39 +55,6 @@ export const SingleRecipe = (props) => {
       setRender(true);
     }
   }, [recipeInfo, user]);
-
-  /* CONST GET AVAILABLE INGREDIENTS */
-  const getAvailableIngredients = () => {
-    let ingredientsNotYetInRecipe = newIngredients.filter((elem) =>
-      recipeIngredients.every((elem2) => elem2.ingredientId !== elem._id)
-    );
-    setNewIngredients(ingredientsNotYetInRecipe);
-  };
-
-  /* RESET INGREDIENT STATE */
-  const resetIngredients = () => {
-    setIngredientId("");
-    setIngredient("");
-    setQty("");
-    setUnit("");
-  };
-
-  /* ADD NEW INGREDIENT */
-  const addIngredient = async () => {
-    const response = await addIngredientRecipe(
-      recipeInfo._id,
-      ingredientId,
-      ingredient,
-      qty,
-      unit
-    );
-    if (response) {
-      setRecipeIngredients(response.ingredients);
-      getAvailableIngredients();
-      setAddNewingredient(false);
-      resetIngredients();
-    }
-  };
 
   /* UPDATE RECIPE NAME */
   const updateName = async () => {
@@ -166,18 +107,7 @@ export const SingleRecipe = (props) => {
           recipeInfo={recipeInfo}
           edit={edit}
           recipeIngredients={recipeIngredients}
-          getAvailableIngredients={getAvailableIngredients}
         />
-        {addNewIngredient ? (
-          <IngredientsDropdown
-            arr={newIngredients}
-            ingredientNameHandler={ingredientHandler}
-            quantity={qty}
-            quantityHandler={qtyHandler}
-            unitHandler={unitHandler}
-            submitAction={addIngredient}
-          />
-        ) : null}
       </div>
       <div className="instructions">
         <h5>Preparacion</h5>
