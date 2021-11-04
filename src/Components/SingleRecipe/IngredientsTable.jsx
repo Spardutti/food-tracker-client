@@ -1,4 +1,4 @@
-import { removeRecipeIngredient } from "../../api/recipe";
+import { removeRecipeIngredient, addIngredientRecipe } from "../../api/recipe";
 import { IngredientsDropdown } from "../IngredientsDropdown";
 
 export const IngredientsTable = ({
@@ -22,6 +22,23 @@ export const IngredientsTable = ({
     if (response) {
       setRecipeIngredients(response.ingredients);
     }
+  };
+
+  /* ADD NEW INGREDIENT */
+  const addIngredient = async (
+    ingredientId,
+    ingredientName,
+    ingredientQty,
+    ingredientUnit
+  ) => {
+    const response = await addIngredientRecipe(
+      recipeInfo._id,
+      ingredientId,
+      ingredientName,
+      ingredientQty,
+      ingredientUnit
+    );
+    return response;
   };
 
   return (
@@ -61,8 +78,9 @@ export const IngredientsTable = ({
         <IngredientsDropdown
           setToggle={setAddNewingredient}
           recipeInfo={recipeInfo}
-          setUpdatedArr={setRecipeIngredients}
-          updatedArr={recipeIngredients}
+          setIngredientsInUse={setRecipeIngredients}
+          ingredientsInUse={recipeIngredients}
+          submitAction={addIngredient}
         />
       ) : null}
     </div>

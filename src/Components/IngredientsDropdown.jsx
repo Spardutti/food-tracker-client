@@ -1,16 +1,22 @@
 import { useEffect, useState } from "react/cjs/react.development";
 import { Units } from "./styled/Unit";
-import { addIngredientRecipe } from "../api/recipe";
 import { getAllIngredients } from "../api/ingredient";
 
 export const IngredientsDropdown = (props) => {
-  const { setUpdatedArr, updatedArr, recipeInfo, setToggle } = props;
+  const {
+    setIngredientsInUse,
+    ingredientsInUse,
+    recipeInfo,
+    setToggle,
+    submitAction,
+  } = props;
 
   const [ingredientId, setIngredientId] = useState("");
   const [ingredientName, setIngredientName] = useState("");
   const [ingredientQty, setIngredientQty] = useState("");
   const [ingredientUnit, setIngredientUnit] = useState("");
-  const [ingredientsInUse, setIngredientsInUse] = useState([]);
+  const [availableIngredients, setAvailableIngredients] = useState([]);
+  const [allIngredients, setAllIngredients] = useState([]);
 
   /* HANDLERS */
   const ingredientHandler = (e) => {
@@ -29,24 +35,22 @@ export const IngredientsDropdown = (props) => {
 
   /* GET  INGREDIENTS IN USE */
   const getIngredients = async () => {
-    setIngredientsInUse(await getAllIngredients());
+    setAllIngredients(await getAllIngredients());
   };
 
   useEffect(() => {
     getIngredients();
   }, []);
 
-  /* ADD NEW INGREDIENT */
-  const addIngredient = async () => {
-    const response = await addIngredientRecipe(
-      recipeInfo._id,
+  const submitFunc = async () => {
+    const response = await submitAction(
       ingredientId,
       ingredientName,
       ingredientQty,
       ingredientUnit
     );
     if (response) {
-      setUpdatedArr(response.ingredients);
+      setIngredientsInUse(response.ingredients);
       resetIngredients();
       setToggle(false);
     }
@@ -62,25 +66,23 @@ export const IngredientsDropdown = (props) => {
 
   /* CONST GET AVAILABLE INGREDIENTS */
   const getAvailableIngredients = () => {
-    let ingredientsNotYetInRecipe = ingredientsInUse.filter((elem) =>
-      updatedArr.every((elem2) => elem2.ingredientId !== elem._id)
+    let ingredientsNotYetInRecipe = allIngredients.filter((elem) =>
+      ingredientsInUse.every((elem2) => elem2.ingredientId !== elem._id)
     );
-    //TODO ingredients in use is empty, fix
-    console.log(ingredientsNotYetInRecipe, ingredientsInUse, updatedArr);
-    setIngredientsInUse(ingredientsNotYetInRecipe);
+    setAvailableIngredients(ingredientsNotYetInRecipe);
   };
 
   useEffect(() => {
-    ingredientsInUse && getAvailableIngredients();
-  }, []);
+    getAvailableIngredients();
+  }, [allIngredients]);
 
-  return (
+  return availableIngredients ? (
     <div className="form">
       <select onChange={ingredientHandler} defaultValue="" required>
         <option disabled value="">
           Escoge un ingrediente
         </option>
-        {ingredientsInUse.map((ingredient, index) => {
+        {availableIngredients.map((ingredient, index) => {
           return (
             <option value={ingredient.name} id={ingredient._id} key={index}>
               {ingredient.name}
@@ -99,9 +101,9 @@ export const IngredientsDropdown = (props) => {
         <label>Cantidad</label>
       </div>
       <Units unitHandler={unitHandler} />
-      <p className="btn" onClick={addIngredient}>
+      <p className="btn" onClick={submitFunc}>
         Agregar
       </p>
     </div>
-  );
+  ) : null;
 };
