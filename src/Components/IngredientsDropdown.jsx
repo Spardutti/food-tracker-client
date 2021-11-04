@@ -3,13 +3,8 @@ import { Units } from "./styled/Unit";
 import { getAllIngredients } from "../api/ingredient";
 
 export const IngredientsDropdown = (props) => {
-  const {
-    setIngredientsInUse,
-    ingredientsInUse,
-    recipeInfo,
-    setToggle,
-    submitAction,
-  } = props;
+  const { setIngredientsInUse, ingredientsInUse, setToggle, submitAction } =
+    props;
 
   const [ingredientId, setIngredientId] = useState("");
   const [ingredientName, setIngredientName] = useState("");
@@ -50,7 +45,7 @@ export const IngredientsDropdown = (props) => {
       ingredientUnit
     );
     if (response) {
-      setIngredientsInUse(response.ingredients);
+      setIngredientsInUse(response);
       resetIngredients();
       setToggle(false);
     }
@@ -66,9 +61,15 @@ export const IngredientsDropdown = (props) => {
 
   /* CONST GET AVAILABLE INGREDIENTS */
   const getAvailableIngredients = () => {
+    if (!ingredientsInUse) {
+      setAvailableIngredients(allIngredients);
+      return;
+    }
+
     let ingredientsNotYetInRecipe = allIngredients.filter((elem) =>
       ingredientsInUse.every((elem2) => elem2.ingredientId !== elem._id)
     );
+    console.log(ingredientsInUse);
     setAvailableIngredients(ingredientsNotYetInRecipe);
   };
 

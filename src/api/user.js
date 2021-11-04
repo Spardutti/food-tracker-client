@@ -68,17 +68,17 @@ export const getUser = async () => {
 /* ADD INGREDIENT TO USER FRIDGE */
 export const addIngredientToFridge = async (
   ingredientId,
+  ingredientName,
   ingredientQty,
-  ingredientUnit,
-  ingredientName
+  ingredientUnit
 ) => {
   const response = await fetch(`${urlDev}/user/ingredientadd`, {
-    method: "POST",
+    method: "PATCH",
     headers: params,
     body: JSON.stringify({
-      ingredient: ingredientId,
-      name: ingredientName,
-      quantity: ingredientQty,
+      ingredientId,
+      ingredientName,
+      ingredientQty,
       unit: ingredientUnit,
     }),
   });

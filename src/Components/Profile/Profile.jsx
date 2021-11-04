@@ -1,10 +1,13 @@
 import { recipesByAuthor } from "../../api/recipe";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { RecipeCard } from "../RecipeCard";
 import { UserFridge } from "./UserFridge";
+import { userContext } from "../../context/userContext";
 
 export const Profile = () => {
   const [userRecipes, setUserRecipes] = useState([]);
+
+  const { user } = useContext(userContext);
 
   /* GET RECIPES CREATED BY USER */
   const getUserRecipes = async () => {
@@ -31,7 +34,7 @@ export const Profile = () => {
               />
             );
           })}
-        <UserFridge />
+        <UserFridge user={user} />
       </div>
     </div>
   );
