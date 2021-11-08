@@ -47,7 +47,8 @@ export const IngredientsDropdown = (props) => {
     if (response) {
       setIngredientsInUse(response);
       resetIngredients();
-      setToggle(false);
+      console.log(response);
+      // setToggle(false);
     }
   };
 
