@@ -38,7 +38,7 @@ export const UserFridge = ({ user }) => {
       {fridge
         ? fridge.map((ingredient, index) => {
             return (
-              <div>
+              <div key={index}>
                 <p>{ingredient.name}</p>
                 <p>{ingredient.quantity}</p>
                 <p>{ingredient.unit}</p>
