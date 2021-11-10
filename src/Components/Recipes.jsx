@@ -5,10 +5,16 @@ import { CreateNewRecipe } from "./CreateNewRecipe";
 
 export const Recipes = () => {
   const [allRecipes, setAllRecipes] = useState([]);
-
+  const [newRecipeState, setNewRecipeState] = useState(false);
   const getAll = async () => {
     const recipes = await getAllRecipes();
     if (recipes) setAllRecipes(recipes);
+  };
+
+  /* TOGGLE NEW RECIPE FORM */
+
+  const toggleNewRecipe = () => {
+    setNewRecipeState(true);
   };
 
   useEffect(() => {
@@ -17,9 +23,14 @@ export const Recipes = () => {
 
   return (
     <div>
-      <CreateNewRecipe />
+      {newRecipeState ? (
+        <CreateNewRecipe setToggle2={setNewRecipeState} />
+      ) : (
+        <button className="btn btn-main" onClick={toggleNewRecipe}>
+          Nueva Receta
+        </button>
+      )}
       <div>
-        <button className="new-recipe-button">Crear Receta</button>
         <div>
           {allRecipes.map((recipe, index) => {
             const { _id, name, image, rating } = recipe;

@@ -2,13 +2,14 @@ import { useState, useEffect } from "react";
 import { IngredientsDropdown } from "./IngredientsDropdown";
 import { createNewRecipe } from "../api/recipe";
 
-export const CreateNewRecipe = () => {
+export const CreateNewRecipe = (props) => {
+  const { setToggle2 } = props;
+
   const [recipeName, setRecipeName] = useState("");
   const [recipeInstructions, setRecipeInstructions] = useState("");
   const [recipeIngredients, setRecipeIngredients] = useState([]);
   const [ingredientsToAdd, setIngredientsToAdd] = useState([]);
   const [addIngredientState, setAddIngredientState] = useState(false);
-  const [createRecipeState, setCreateRecipeState] = useState(false);
 
   /* HANDLERS */
   const nameHandler = (e) => {
@@ -24,7 +25,7 @@ export const CreateNewRecipe = () => {
     e.preventDefault();
 
     createNewRecipe(recipeName, recipeInstructions, recipeIngredients);
-    setCreateRecipeState(false);
+    setToggle2(false);
   };
 
   /* ADD INGREDIENT TO RECIPE */
@@ -53,67 +54,60 @@ export const CreateNewRecipe = () => {
 
   return (
     <div>
-      {createRecipeState ? (
-        <form className="form">
+      <form className="form">
+        <div className="input-container">
+          <input
+            type="text"
+            required
+            autoComplete="off"
+            onChange={nameHandler}
+            value={recipeName}
+          />
+          <label htmlFor="">Nombre</label>
+        </div>
+        <div className="input-container">
+          <input
+            type="text"
+            required
+            autoComplete="off"
+            onChange={instrucrionsHandler}
+            value={recipeInstructions}
+          />
+          <label htmlFor="">Instrucciones</label>
+        </div>
+        <div>
+          {recipeIngredients ? (
+            <ul className="ingredient-list">
+              {recipeIngredients.map((ingredient, index) => {
+                return (
+                  <li value={ingredient.name} key={index}>
+                    {ingredient.name}
+                  </li>
+                );
+              })}
+            </ul>
+          ) : null}
+        </div>
+        {addIngredientState ? (
           <div className="input-container">
-            <input
-              type="text"
-              required
-              autoComplete="off"
-              onChange={nameHandler}
-              value={recipeName}
+            <IngredientsDropdown
+              setIngredientsInUse={setRecipeIngredients}
+              ingredientsInUse={recipeIngredients}
+              setToggle={setAddIngredientState}
+              submitAction={addIngredient}
             />
-            <label htmlFor="">Nombre</label>
           </div>
-          <div className="input-container">
-            <input
-              type="text"
-              required
-              autoComplete="off"
-              onChange={instrucrionsHandler}
-              value={recipeInstructions}
-            />
-            <label htmlFor="">Instrucciones</label>
-          </div>
-          <div>
-            {recipeIngredients ? (
-              <ul className="ingredient-list">
-                {recipeIngredients.map((ingredient, index) => {
-                  return (
-                    <li value={ingredient.name} key={index}>
-                      {ingredient.name}
-                    </li>
-                  );
-                })}
-              </ul>
-            ) : null}
-          </div>
-          {addIngredientState ? (
-            <div className="input-container">
-              <IngredientsDropdown
-                setIngredientsInUse={setRecipeIngredients}
-                ingredientsInUse={recipeIngredients}
-                setToggle={setAddIngredientState}
-                submitAction={addIngredient}
-              />
-            </div>
-          ) : (
-            <button className="btn btn-main" onClick={toggleAddIngredient}>
-              Agregar ingrediente
-            </button>
-          )}
-          <div className="btn-container">
-            <button className="btn btn-main" onClick={createRecipe}>
-              Crear
-            </button>
-          </div>
-        </form>
-      ) : (
-        <button className="btn btn-main" onClick={setCreateRecipeState(true)}>
-          {" "}
-          Nueva Receta{" "}
-        </button>
-      )}
+        ) : (
+          <button className="btn btn-main" onClick={toggleAddIngredient}>
+            Agregar ingrediente
+          </button>
+        )}
+        <div className="btn-container">
+          <button className="btn btn-main" onClick={createRecipe}>
+            Crear Receta
+          </button>
+        </div>
+      </form>
     </div>
   );
 };
