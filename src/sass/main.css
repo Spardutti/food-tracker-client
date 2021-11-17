@@ -1,3 +1,5 @@
+/* TEXT COLOR */
+/* BACKGROUNDS */
 * {
   margin: 0%;
   padding: 0px;
@@ -7,11 +9,11 @@
 
 a {
   text-decoration: none;
-  color: black;
+  color: #201d1d;
 }
 
 a:hover {
-  color: black;
+  color: #201d1d;
 }
 
 html {
@@ -38,5 +40,294 @@ body {
 
 .nav a {
   margin-left: 1rem;
+}
+
+.overlay {
+  position: fixed;
+  left: 0;
+  right: 0%;
+  top: 0%;
+  bottom: 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  z-index: 99;
+  background-color: rgba(0, 0, 0, 0.8);
+  -webkit-animation: fadeIn 0.3s;
+          animation: fadeIn 0.3s;
+}
+
+.errors {
+  font-size: 1.5rem;
+}
+
+/* FADE */
+@-webkit-keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.btn-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.btn {
+  padding: 1rem 2rem;
+  border-radius: 1rem;
+  border: none;
+  font-weight: bold;
+  letter-spacing: 0.2rem;
+  cursor: pointer;
+}
+
+.btn:hover {
+  -webkit-transform: translateY(-0.5rem);
+          transform: translateY(-0.5rem);
+  -webkit-transition: all 0.4s;
+  transition: all 0.4s;
+  -webkit-box-shadow: 0 1rem 0.5rem #272727;
+          box-shadow: 0 1rem 0.5rem #272727;
+}
+
+.btn:active {
+  -webkit-transform: translateY(-0.1rem);
+          transform: translateY(-0.1rem);
+}
+
+.btn-main {
+  background-color: blue;
+  color: white;
+}
+
+.login-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  margin-top: 20rem;
+  background-color: rgba(0, 0, 0, 0.8);
+  padding: 1rem;
+  width: 40rem;
+  height: 40rem;
+  margin: 20rem auto;
+  border-radius: 1rem;
+}
+
+.recipe-card-container {
+  width: 15rem;
+  height: 15rem;
+  position: relative;
+  cursor: pointer;
+}
+
+.recipe-card-bg {
+  width: 5rem;
+  height: 5rem;
+  margin: 1rem 0;
+}
+
+.home-container {
+  margin-top: 5rem;
+  padding: 2.5rem;
+  min-height: 20rem;
+  text-align: center;
+}
+
+.home-container h5 {
+  font-size: 2.3rem;
+}
+
+.home-card-container {
+  margin-top: 5rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.recipe-container {
+  width: 50rem;
+  margin: 10rem auto;
+}
+
+.recipe-container .tittle {
+  position: relative;
+  font-size: 1rem;
+  text-align: center;
+}
+
+.recipe-container .tittle h3 {
+  font-size: 3.5rem;
+  padding: 1rem;
+}
+
+.recipe-container .tittle hr {
+  margin: 1rem 0;
+}
+
+.recipe-container .instructions {
+  text-align: center;
+  font-size: 1.5rem;
+}
+
+.recipe-container .instructions h5 {
+  font-size: 2rem;
+}
+
+.recipe-container .ingredients {
+  text-align: center;
+  font-size: 2rem;
+}
+
+.recipe-container .ingredients h5 {
+  margin-bottom: 1rem;
+}
+
+.recipe-container .ingredients .ingredients-table {
+  text-align: center;
+  margin: 1rem auto;
+  width: 100%;
+  font-size: 1.5rem;
+  border-collapse: collapse;
+}
+
+.recipe-container .ingredients .ingredients-table td {
+  border-bottom: 0.1rem solid black;
+  padding: 0.1rem;
+}
+
+.recipe-container .ingredients .ingredients-table th {
+  border-bottom: 0.1rem solid black;
+  padding: 0.3rem;
+}
+
+.recipe-container .btn-like {
+  position: absolute;
+  left: 0rem;
+  bottom: 0.5rem;
+}
+
+.recipe-container .edit-container {
+  position: absolute;
+  right: 0rem;
+  bottom: 0.5rem;
+}
+
+.recipe-container .edit-container p {
+  margin: 0.5rem 0;
+}
+
+.recipe-container .add-ingredient {
+  margin: auto;
+  font-size: 1rem;
+  width: 15rem;
+}
+
+.form {
+  width: 40rem;
+  min-height: 30rem;
+  background-color: white;
+  padding: 2rem;
+  border-radius: 1rem;
+  font-size: 2rem;
+}
+
+.form .input-container {
+  position: relative;
+  padding: 2.5rem 0;
+}
+
+.form .input-container:first-child {
+  padding-top: 3rem;
+}
+
+.form .input-container input {
+  width: 100%;
+  padding: 0rem 1rem;
+  border: none;
+  border-bottom: 0.1rem solid #201d1d;
+  outline: none;
+  font-size: 2rem;
+}
+
+.form .input-container input:focus + label,
+.form .input-container input:valid + label,
+.form .input-container input:hover + label {
+  -webkit-transform: translateY(-2.5rem);
+          transform: translateY(-2.5rem);
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
+  color: rgba(0, 0, 0, 0.8);
+}
+
+.form .input-container label {
+  position: absolute;
+  left: 0%;
+  bottom: 3rem;
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
+}
+
+.form .input-container label:first-child {
+  bottom: 3rem;
+}
+
+.form .input-container label:hover {
+  -webkit-transform: translateY(-2.5rem);
+          transform: translateY(-2.5rem);
+}
+
+.comments-container {
+  padding: 0.5rem 0;
+}
+
+.comments-container .comment-container {
+  margin: 1rem 1rem;
+  padding: 0.5rem 1rem;
+  position: relative;
+}
+
+.comments-container .comment-container .text {
+  font-size: 1.5rem;
+  text-align: left;
+  word-wrap: break-word;
+}
+
+.comments-container .comment-container .info {
+  margin-top: 1rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.comments-container .comment-container .info div {
+  width: 100%;
+  text-align: center;
 }
 /*# sourceMappingURL=main.css.map */

@@ -1,0 +1,24 @@
+.comments-container {
+  padding: 0.5rem 0;
+
+  .comment-container {
+    margin: 1rem 1rem;
+    padding: 0.5rem 1rem;
+    position: relative;
+
+    .text {
+      font-size: 1.5rem;
+      text-align: left;
+      word-wrap: break-word;
+    }
+
+    .info {
+      margin-top: 1rem;
+      display: flex;
+      div {
+        width: 100%;
+        text-align: center;
+      }
+    }
+  }
+}
